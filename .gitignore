@@ -1,0 +1,10 @@
+makefile
+.textpad*
+*.aux
+*.bbl
+*.blg
+*.ent
+*.log
+*.out
+*.soc
+.ipynb_checkpoints/*

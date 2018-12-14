@@ -1,0 +1,119 @@
+\begin{table*}
+    \centering
+    \caption{\textbf{\ndmg~pipeline robustness and reliability.}
+We ran \ndmg~on over 20 different studies, including both fMRI and dMRI data, spanning multiple different scanners, acquisition parameters, and population demographics. Nonetheless, for both fMRI and dMRI data, across all datasets with multiple measurements, \ndmg~always achieved $>0.8$ discriminability, and \ndmgd's discriminability was typically $>0.98$ on the dMRI data. MM computes discriminability using multi-modal data from both the dMRI and fMRI connectomes. $D$=discriminability. Scanners are G (GE), P (Phillips), or S (Siemens).	
+}
+    \label{tab:data}
+    \pgfplotstabletypeset[
+    	header=true,
+        string type,
+        font=\addfontfeature{Numbers={Monospaced}}\small,
+        columns/dset/.style={column name=Study, column type={p{.115\textwidth}}},
+        columns/sca/.style={column name=Scanner, column type={p{.064\textwidth}}},
+        columns/age/.style={column name={Age$\pm$1 std}, column type={p{.106\textwidth}}},
+        columns/male/.style={column name=$\%$ Male, column type={p{.06\textwidth}}},
+        columns/subjs/.style={column name=Indiv., column type={p{.055\textwidth}}},
+        columns/ses/.style={column name=Ses., column type={p{.04\textwidth}}},
+        columns/totd/.style={column name=\#Scans, column type={p{.049\textwidth}}},
+        columns/trtd/.style={column name=$D$, column type={p{.048\textwidth}}},
+        columns/totf/.style={column name=\#Scans, column type={p{.06\textwidth}}},
+        columns/trtf/.style={column name=$D$, column type={p{.048\textwidth}}},
+        columns/totm/.style={column name=\#Scans, column type={p{.049\textwidth}}},
+        columns/trtm/.style={column name=$D$, column type={p{.048\textwidth}}},
+        every head row/.style={
+            before row={
+            	\topline
+                \rowcolor{tableheadcolor}
+            },
+            after row={\midtopline}
+        },
+        every odd row/.style={
+        	before row={\rowcolor{vlgray}}
+        },
+        every row no 25/.style={
+            before row={\topline\rowcolor{tableheadcolor}}
+        },
+        every last row/.style={
+            before row={\rowcolor{tableheadcolor}},
+            after row=\bottomline
+        },  
+        col sep=&,
+        row sep=\\
+    ]{dset & subjs & ses & totd & trtd \\
+    HNU1    & 30   & 10 & 300  & 0.993  \\
+    BNU1    & 57   & 2  & 114  & 0.984 \\
+    SWU4    & 235  & 2  & 454  & 0.884 \\
+    BNU3    & 48   & 1  & 47   & NA \\
+    Kirby21 & 21   & 2  & 42   & 1.0 \\
+    NKI1    & 24   & 2  & 40   & 0.984 \\
+    Temp114 & 114  & 1  & 114  & NA  \\
+    NKI-ENH & 198  & 1  & 198  & NA  \\
+    Temp255 & 255  & 1  & 253  & NA \\
+    PING    & 932  & 1-5& 1486 & NA \\
+    MRN1313 & 1313 & 1  & 1299 & NA\\
+    Pooled dMRI & 3227 & & 4347& 0.979 \\
+    }
+\end{table*}
+
+\begin{table*}
+    \centering
+    \caption{\textbf{\ndmg~pipeline robustness and reliability.}
+We ran \ndmg~on over 20 different studies, including both fMRI and dMRI data, spanning multiple different scanners, acquisition parameters, and population demographics. Nonetheless, for both fMRI and dMRI data, across all datasets with multiple measurements, \ndmg~always achieved $>0.8$ discriminability, and \ndmgd's discriminability was typically $>0.98$ on the dMRI data. MM computes discriminability using multi-modal data from both the dMRI and fMRI connectomes. $D$=discriminability. Scanners are G (GE), P (Phillips), or S (Siemens).	
+}
+    \label{tab:data}
+    \pgfplotstabletypeset[
+    	header=true,
+        string type,
+        font=\addfontfeature{Numbers={Monospaced}}\small,
+        columns/dset/.style={column name=Study, column type={p{.115\textwidth}}},
+        columns/sca/.style={column name=Scanner, column type={p{.064\textwidth}}},
+        columns/age/.style={column name={Age$\pm$1 std}, column type={p{.106\textwidth}}},
+        columns/male/.style={column name=$\%$ Male, column type={p{.06\textwidth}}},
+        columns/subjs/.style={column name=Indiv., column type={p{.055\textwidth}}},
+        columns/ses/.style={column name=Ses., column type={p{.04\textwidth}}},
+        columns/totd/.style={column name=\#Scans, column type={p{.049\textwidth}}},
+        columns/trtd/.style={column name=$D$, column type={p{.048\textwidth}}},
+        columns/totf/.style={column name=\#Scans, column type={p{.049\textwidth}}},
+        columns/trtf/.style={column name=$D$, column type={p{.048\textwidth}}},
+        columns/totm/.style={column name=\#Scans, column type={p{.06\textwidth}}},
+        columns/trtm/.style={column name=$D$, column type={p{.048\textwidth}}},
+        every head row/.style={
+            before row={
+            	\topline
+                \rowcolor{tableheadcolor}
+            },
+            after row={\midtopline}
+        },
+        every odd row/.style={
+        	before row={\rowcolor{vlgray}}
+        },
+        every row no 25/.style={
+            before row={\topline\rowcolor{tableheadcolor}}
+        },
+        every last row/.style={
+            before row={\rowcolor{tableheadcolor}},
+            after row=\bottomline
+        },  
+        col sep=&,
+        row sep=\\
+    ]{dset & subjs & ses & totf & trtf \\
+    HNU1     &  30  & 10 & 300 & 0.956  \\
+    BNU1     & 57   & 2  & 108 & 0.906  \\
+    SWU4     & 235  & 2  & 466 & 0.891  \\
+    BNU3     & 48   & 1  & 47  & NA  \\
+    IPCAS6   & 2    & 9  & 18  & 0.994 \\
+    IPCAS8   & 13   & 2  & 26  & 0.958  \\
+    SWU1     & 20   & 3  & 60  & 0.935  \\
+    IPCAS5   & 22   & 2  & 44  & 0.819 \\
+    SWU3     & 23   & 2  & 46  & 0.986 \\
+    XHCUMS   & 23   & 5  & 115 & 0.823 \\
+    UWM      & 25   & 2  & 50  & 0.849 \\
+    NYU1     & 25   & 3  & 75  & 0.931 \\
+    SWU2     & 27   & 2  & 54  & 0.874 \\
+    IPCAS1   & 30   & 2  & 60  & 0.893 \\
+    IPCAS2   & 34   & 2  & 68  & 0.868 \\
+    IBATRT   & 36   & 2  & 50  & 0.974 \\
+    MRN1     & 52   & 2  & 90  & 0.859 \\
+    BNU2     & 61   & 2  & 121 & 0.863 \\
+    }
+\end{table*}

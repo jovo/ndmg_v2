@@ -1,0 +1,74 @@
+\begin{table*}
+    \centering
+    \caption{\textbf{\ndmg~pipeline robustness and reliability.}
+We ran \ndmg~on over 20 different studies, including both fMRI and dMRI data, spanning multiple different scanners, acquisition parameters, and population demographics. Nonetheless, for both fMRI and dMRI data, across all datasets with multiple measurements, \ndmg~always achieved $>0.8$ discriminability, and \ndmgd's discriminability was typically $>0.98$ on the dMRI data. MM computes discriminability using multi-modal data from both the dMRI and fMRI connectomes. $D$=discriminability. Scanners are G (GE), P (Phillips), or S (Siemens).	
+}
+    \label{tab:data}
+    \pgfplotstabletypeset[
+    	header=true,
+        string type,
+        font=\addfontfeature{Numbers={Monospaced}}\small,
+        columns/dset/.style={column name=Study, column type={p{.115\textwidth}}},
+        columns/sca/.style={column name=Scanner, column type={p{.06\textwidth}}},
+        columns/age/.style={column name={Age$\pm$1 std}, column type={p{.106\textwidth}}},
+        columns/male/.style={column name=$\%$ Male, column type={p{.06\textwidth}}},
+        columns/subjs/.style={column name=Indiv., column type={p{.055\textwidth}}},
+        columns/ses/.style={column name=Ses., column type={p{.04\textwidth}}},
+        columns/totd/.style={column name=\#Scans, column type={p{.049\textwidth}}},
+        columns/trtd/.style={column name=$D$, column type={p{.048\textwidth}}},
+        columns/totf/.style={column name=\#Scans, column type={p{.049\textwidth}}},
+        columns/trtf/.style={column name=$D$, column type={p{.048\textwidth}}},
+        columns/totm/.style={column name=\#Scans, column type={p{.049\textwidth}}},
+        columns/trtm/.style={column name=$D$, column type={p{.048\textwidth}}},
+        every head row/.style={
+            before row={
+            	\topline
+                \rowcolor{tableheadcolor}
+                & & & & & &\multicolumn{2}{c}{dMRI} & \multicolumn{2}{c}{fMRI} & \multicolumn{2}{c}{MM} \\
+                \rowcolor{tableheadcolor}
+            },
+            after row={\midtopline}
+        },
+        every odd row/.style={
+        	before row={\rowcolor{vlgray}}
+        },
+        every row no 25/.style={
+            before row={\topline\rowcolor{tableheadcolor}}
+        },
+        every last row/.style={
+            before row={\rowcolor{tableheadcolor}},
+            after row=\bottomline
+        },  
+        col sep=&,
+        row sep=\\
+    ]{dset & sca & age & male & subjs & ses & totd & trtd & totf & trtf & totm & trtm \\
+    HNU1~\cite{corr} & G & 24.4 $\pm$ 2.3 & 0.50 & 30  & 10 & 300 & 0.993 & 300 & 0.956 & 300 & .993 \\
+    BNU1~\cite{corr} & S & 23.0 $\pm$ 2.3 & 0.53 & 57  & 2  & 114 & 0.984 & 108 & 0.906 & 108 & .990 \\
+    SWU4~\cite{corr} & S & 20.0 $\pm$ 1.3 & 0.51 & 235 & 2 & 454 & 0.884 & 466 & 0.891 & 452 & .903 \\
+    BNU3~\cite{corr} & S & 22.5 $\pm$ 2.1 & 0.50 & 48 & 1 & 47 & NA & 47 & NA  & 47 & NA \\
+    Kirby21~\cite{Kirby21}  & P  & 31.8 $\pm$ 9.4 & 0.52 & 21 & 2 & 42 & 1.0 & -- & -- & -- & -- \\
+    NKI1~\cite{corr} & S & 34.4 $\pm$ 12.8 & 0.0 & 24 & 2 & 40 & 0.984 & -- & --& -- & -- \\
+    Temp114 & S & 21.8 $\pm$ 3.0 & 0.58 & 114 & 1 & 114 & NA & -- & --& -- & -- \\
+    NKI-ENH~\cite{nkirs} & S & 42.5 $\pm$ 19.6 & 0.40 & 198 & 1 & 198 & NA & -- & --& -- & -- \\
+    Temp255 & S & 22.1 $\pm$ 3.9 & 0.51 & 255 & 1 & 253 & NA & -- & --& -- & -- \\
+    PING~\cite{ping} & G/S/P & 11.7 $\pm$ 5.0 & 0.52 & 932 & 1-5 & 1486 & NA &-- &  --& -- & -- \\
+    MRN1313 & S  & 27.6 $\pm$ 13.3 & 0.60 & 1313 & 1 & 1299 & NA &-- &  -- & --  & --\\
+    IPCAS6~\cite{corr} & S & 23.0 $\pm$ 2.0 & 0.5 & 2 & 9 & -- & -- & 18 & 0.994& -- & -- \\
+    IPCAS8~\cite{corr} & S & 57.6 $\pm$ 3.6 & 0.46 & 13 & 2 & -- & -- & 26 & 0.958 & --  & -- \\
+    SWU1~\cite{corr} & S & 21.6 $\pm$ 1.7 & 0.3 & 20 & 3 & -- & -- & 60 & 0.935 & --  & -- \\
+    IPCAS5~\cite{corr} & S & 18.3 $\pm$ 0.5 & 1.0 & 22 & 2 & -- & -- & 44 & 0.819 & --  & --\\
+    SWU3~\cite{corr} & S & 20.4 $\pm$ 1.6 & .35 & 23 & 2 & -- & -- & 46 & 0.986 & -- & -- \\
+    XHCUMS~\cite{corr} & S & 52.0 $\pm$ 6.3 & 0.60 & 23 & 5 & -- & -- & 115 & 0.823 & -- & --\\
+    UWM~\cite{corr} & G & 25.0 $\pm$ 3.2 & 0.56 & 25 & 2 & -- & -- & 50 & 0.849 & -- & -- \\
+    NYU1~\cite{corr} & S & 29.4 $\pm$ 8.4 & 0.4 & 25 & 3 & -- & -- & 75 & 0.931 & -- & -- \\
+    SWU2~\cite{corr} & S & 21.0 $\pm$ 1.6 & 0.33 & 27 & 2 & -- & -- & 54 & 0.874 & -- & --\\
+    IPCAS1~\cite{corr} & S & 20.9 $\pm$ 1.7 & 0.3 & 30 & 2 & -- & -- & 60 & 0.893 & -- & --\\
+    IPCAS2~\cite{corr} & S & 13.4 $\pm$ 0.9 & 0.35 & 34 & 2 & -- & -- & 68 & 0.868 & -- & --\\
+    IBATRT~\cite{corr} & S & 28.0 $\pm$ 7.5 & 0.54 & 36 & 2 & -- & -- & 50 & 0.974 & -- & --\\
+    MRN1~\cite{corr} & S & 15.1 $\pm$ 7.8 & 0.5 & 52 & 2 & & & 90 & 0.859 & -- & --\\
+    BNU2~\cite{corr} & S & 20.9 $\pm$ .9 & 0.54 & 61 & 2 & -- & -- & 121 & 0.863 & -- & --\\
+    Pooled dMRI & & & & 3227 & & 4347 & 0.979 & -- & -- & -- & --\\
+    Pooled fMRI & & & & 763 & &  -- & -- & 1798 & 0.881 & -- & --\\
+    Pooled MM & & & & 361 & & -- & -- & -- & -- & 907 & 0.982 \\
+    }
+\end{table*}

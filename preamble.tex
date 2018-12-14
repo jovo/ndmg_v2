@@ -1,0 +1,161 @@
+% Load Packages
+%%%%%%%%%%%%%%%%%=
+\usepackage[margin=1in]{geometry}
+\geometry{letterpaper}
+\addtolength{\oddsidemargin}{-0.3in}
+\addtolength{\topmargin}{-0.3in}
+\addtolength{\textheight}{0.3in}
+\addtolength{\evensidemargin}{-0.3in}
+\addtolength{\textwidth}{0.6in}
+\usepackage{lineno}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage{fixltx2e}
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+\usepackage{graphicx}
+\usepackage{tikz,pgfplots}
+\usepackage[noend]{algpseudocode}
+\usepackage{algorithm,algorithmicx}
+\usepackage{url}
+\usepackage{color}
+\usepackage{varioref}
+\usepackage{mathrsfs}
+\usepackage[sort&compress,colon,square,numbers]{natbib}
+\usepackage{subcaption}
+\usepackage[final,authormarkup=none]{changes}
+\usepackage{framed}
+\usepackage{setspace}
+\usepackage{verbatim}
+\usepackage{multicol}
+\usepackage{dblfloatfix}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{amssymb}
+\usepackage{verbatim}
+\usepackage{booktabs,colortbl, array}
+\usepackage{pgfplotstable,tabularx}
+\usepackage{tikz}
+\usepackage{pifont}% http://ctan.org/pkg/pifont
+\usepackage{caption}
+\usepackage{enumitem}% http://ctan.org/pkg/enumitem
+\captionsetup[figure]{font=small}
+\captionsetup[table]{font=small}
+
+%% Set bibliography style
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%==%%%%%s
+%~~
+
+\renewcommand{\labelenumi}{\Arabic{enumi}}
+
+%% Declare Colors
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%==%
+
+\definecolor{darktangerine}{rgb}{1.0, 0.77, 0.07}
+\definecolor{aogr}{rgb}{0.0, 0.5, 0.0}
+
+%% Set Up Checks/Xs
+
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+\newcommand{\boldq}{\textbf{?}}
+
+\newcommand{\greencheck}{\textcolor{aogr}\cmark}
+\newcommand{\ocheck}{\textcolor{darktangerine}\cmark}
+\newcommand{\yellowq}{\textcolor{darktangerine}\boldq}
+\newcommand{\redx}{\textcolor{red}\xmark}
+
+%% Set up Tables
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%===%
+\definecolor{tableheadcolor}{gray}{0.92}
+% Following is taken from Werner: http://tex.stackexchange.com/a/33761/3061
+% and modified for my needs
+%
+% Command \topline consists of a (slightly modified)
+% \toprule followed by a \heavyrule rule of colour tableheadcolor
+% (hence, 2 separate rules)
+\newcommand{\topline}{ %
+        \arrayrulecolor{MSBlue}\specialrule{0.1em}{\abovetopsep}{0pt}%
+        \arrayrulecolor{tableheadcolor}\specialrule{\belowrulesep}{0pt}{0pt}%
+        \arrayrulecolor{MSBlue}}
+% Command \midline consists of 3 rules (top colour tableheadcolor, middle colour black, bottom colour white)
+\newcommand{\midtopline}{ %
+        \arrayrulecolor{tableheadcolor}\specialrule{\aboverulesep}{0pt}{0pt}%
+        \arrayrulecolor{MSBlue}\specialrule{\lightrulewidth}{0pt}{0pt}%
+        \arrayrulecolor{white}\specialrule{\belowrulesep}{0pt}{0pt}%
+        \arrayrulecolor{MSBlue}}
+% Command \bottomline consists of 2 rules (top colour
+\newcommand{\bottomline}{ %
+        \arrayrulecolor{white}\specialrule{\aboverulesep}{0pt}{0pt}%
+        \arrayrulecolor{MSBlue} %
+        \specialrule{\heavyrulewidth}{0pt}{\belowbottomsep}}%
+
+
+\newcommand{\midheader}[2]{%
+        \midrule\topmidheader{#1}{#2}}
+\newcommand\topmidheader[2]{\multicolumn{#1}{c}{\textsc{#2}}\\%
+                \addlinespace[0.5ex]}
+
+\pgfplotstableset{normal/.style ={%
+        header=true,
+        string type,
+        font=\addfontfeature{Numbers={Monospaced}}\small,
+    	column type={p{.092\textwidth}},
+        every odd row/.style={
+            before row=
+        },
+        every head row/.style={
+            before row={\topline\rowcolor{tableheadcolor}},
+            after row={\midtopline}
+        },
+        every last row/.style={
+            after row=\bottomline
+        },
+        col sep=&,
+        row sep=\midrule
+    }
+}
+% Setup Tikz Plots
+%%%%%%%%%%%%%%%%%==
+\tikzset{
+    flowbox/.style={
+        rectangle, rounded corners, minimum width=2cm, minimum height=1cm,text centered, draw=black
+    },
+    stdarrow/.style={->,>=latex, line width=1.5pt}
+}
+\pgfplotsset{compat=newest}
+
+% Define Some Math Operators
+%%%%%%%%%%%%%%%%%%%%%===
+\labelformat{equation}{\textup{(#1)}}
+\DeclareMathOperator*{\rank}{rank}
+\DeclareMathOperator*{\trace}{trace}
+\DeclareMathOperator*{\range}{range}
+\DeclareMathOperator*{\spn}{span}
+\DeclareMathOperator*{\acos}{acos}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\Discriminability}{\textit{Discriminability}}
+\DeclareMathOperator*{\iid}{\overset{iid}{\sim}}
+
+% Define custom column widths
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%=
+\setlength{\columnsep}{1cm}
+\setlist[enumerate, 1]{label=\textbf{\alph*.}}
+\usepackage{array}
+\newcolumntype{L}{>{\raggedright\arraybackslash}m{3.55cm}}
+\newcolumntype{Q}{>{\raggedright\arraybackslash}m{3.35cm}}
+
+% TODOs 
+%%%%%===
+\newcommand{\todo}[1]{{\color{red}{\it TODO: #1}}}
+\newcommand{\greg}[1]{{\color{cyan}{\it greg: #1}}}
+\newcommand{\jovo}[1]{{\color{purple}{\it jovo: #1}}}
+
+% Shorthand
+%%%%%%%%%===
+\newcommand{\sic}[0]{{\textsc{SIC}}}
+\newcommand{\ndmg}[0]{{\textsc{NDMG}}}
+\newcommand{\ndmgd}[0]{{\textsc{NDMG-d}}}
+\newcommand{\ndmgf}[0]{{\textsc{NDMG-f}}}
+
+\usepackage{neurodata}

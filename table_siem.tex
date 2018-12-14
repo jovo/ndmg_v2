@@ -1,0 +1,35 @@
+\begin{table*}
+    \centering
+    \label{tab:batch}
+    \pgfplotstabletypeset[
+    	header=true,
+        string type,
+        font=\addfontfeature{Numbers={Monospaced}}\small,
+        columns/test/.style={column name=Test, column type={p{.37\textwidth}}},
+        columns/dm/.style={column name=dMRI, column type={p{.08\textwidth}}},
+        columns/fm/.style={column name=fMRI, column type={p{.08\textwidth}}},
+        columns/im/.style={column name=inter-modality, column type={p{.26\textwidth}}},
+        every head row/.style={
+            before row={
+            	\topline
+                \rowcolor{tableheadcolor}
+            },
+            after row={\midtopline}
+        },
+        every odd row/.style={
+        	before row={\rowcolor{vlgray}}
+        },
+        every row no 24/.style={
+            before row={\topline\rowcolor{tableheadcolor}}
+        },
+        every last row/.style={
+            before row={\rowcolor{tableheadcolor}},
+            after row=\bottomline
+        },  
+        col sep=&,
+        row sep=\\
+    ]{ test & dm & fm & im \\
+    Ipsilateral stronger than Contralateral  & 99.9\% & 6.4\% & 99.5\% of dMRI exceed fMRI \\
+    Homotopic Stronger than Heterotopic & 7.7\% & 99.4\% & 99.0\% of fMRI exceed dMRI \\
+    }
+\end{table*}

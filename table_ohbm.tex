@@ -1,0 +1,50 @@
+% tbd post submission: add AMI for ndmg.
+\begin{table*}
+    \centering
+    \caption{\textbf{Comparing M3R Processing Pipelines.}
+\ndmg~is designed  with both algorithmic and implementation principles in mind.  This table compares existing pipelines along these  principles, demonstrating that for each, \ndmg~ performs at least as well as the current state of the art. A  \greencheck~is given for pipelines that satisfy the respective desiderata, a \ocheck~for pipelines that partially satisfy the respective desiderata, and a \redx~is given for pipelines that do not satisfy the respective desiderata.   \ref{app:pipes} provides more details.}
+\label{tab:pipelines}
+    \pgfplotstabletypeset[
+        header=true,
+        string type,
+        font=\addfontfeature{Numbers={Monospaced}}\small,
+        columns/pipe/.style={column name={pipeline}, column type={p{.1\textwidth}}},
+        columns/acc/.style={column name={\rotatebox{60}{accurate}}, column type={p{.05\textwidth}}},
+        columns/rel/.style={column name={\rotatebox{60}{reliable}}, column type={p{.05\textwidth}}},
+        columns/rob/.style={column name={\rotatebox{60}{robust}}, column type={p{.05\textwidth}}},
+        columns/exp/.style={column name={\rotatebox{60}{expedient}}, column type={p{.05\textwidth}}},
+        columns/scale/.style={column name={\rotatebox{60}{scalable}}, column type={p{.05\textwidth}}},
+        columns/port/.style={column name={\rotatebox{60}{portable}}, column type={p{.05\textwidth}}},
+        columns/tk/.style={column name={\rotatebox{60}{turn-key}}, column type={p{.05\textwidth}}},
+        columns/open/.style={column name={\rotatebox{60}{open}}, column type={p{.05\textwidth}}},
+        columns/dwi/.style={column name={\rotatebox{60}{dMRI}}, column type={p{.05\textwidth}}},
+        columns/fmri/.style={column name={\rotatebox{60}{fMRI}}, column type={p{.05\textwidth}}},
+        columns/end2end/.style={column name={\rotatebox{60}{raw-to-graph}}, column type={p{.06\textwidth}}},
+        every head row/.style={
+            before row={
+                \topline
+                \rowcolor{tableheadcolor}
+                & \multicolumn{3}{c}{Statistical Principles} & \multicolumn{5}{c}{Computational Principles} & \multicolumn{3}{c}{Connectome Principles}\\
+                \rowcolor{tableheadcolor}
+            },
+            after row={\midtopline}
+        },
+        every odd row/.style={
+            before row={\rowcolor{vlgray}}
+        },
+        every last row/.style={
+            after row=\bottomline
+        },
+        col sep=&,
+        row sep=\\
+    ]{pipe & acc & rel & rob & exp & scale & port & tk & open & dwi & fmri & end2end \\
+    \includegraphics[width=.025\textwidth]{neurodata_small}\ndmg & \ocheck & \greencheck & \greencheck & \greencheck & \greencheck & \greencheck & \greencheck & \greencheck & \greencheck & \greencheck  & \greencheck \\
+    HCP & \ocheck & \greencheck & \greencheck & \greencheck & \redx & \redx & \greencheck & \greencheck & \greencheck & \greencheck & \redx \\
+    PANDA & \ocheck & \greencheck & \greencheck & \greencheck & \ocheck & \ocheck & \ocheck & \greencheck & \greencheck & \redx &  \greencheck \\
+    CMTK & \ocheck & \greencheck & \greencheck & \greencheck & \ocheck & \redx & \redx & \ocheck & \greencheck & \redx &  \greencheck  \\
+    CPAC  & \ocheck & \greencheck & \greencheck & \greencheck & \greencheck & \greencheck & \greencheck & \greencheck  &  \redx & \greencheck & \redx \\
+    fmriprep & \ocheck & \greencheck & \greencheck & \redx & \greencheck & \greencheck & \greencheck & \greencheck & \redx & \greencheck & \redx  \\
+    NIAK & \ocheck & \greencheck & \greencheck & \greencheck & \ocheck & \ocheck & \redx & \ocheck & \redx & \greencheck & \redx  \\
+    }
+% \caption*{}
+\end{table*}

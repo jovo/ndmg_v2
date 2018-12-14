@@ -1,0 +1,40 @@
+\begin{table*}
+    \centering
+    \label{tab:batch}
+    \pgfplotstabletypeset[
+    	header=true,
+        string type,
+        font=\addfontfeature{Numbers={Monospaced}}\small,
+        columns/conn/.style={column name=Modality, column type={p{.1\textwidth}}},
+        columns/c1/.style={column name=Sessions, column type={p{.12\textwidth}}},
+        columns/c2/.style={column name=Subjects, column type={p{.12\textwidth}}},
+        columns/c3/.style={column name=Sexes, column type={p{.12\textwidth}}},
+        columns/c4/.style={column name=Sites, column type={p{.12\textwidth}}},
+        columns/c5/.style={column name=Demographics, column type={p{.125\textwidth}}},
+        columns/c6/.style={column name=All Studies, column type={p{.12\textwidth}}},
+        every head row/.style={
+            before row={
+            	\topline
+                \rowcolor{tableheadcolor}
+                & \multicolumn{3}{c}{Pooling Within Studies} & \multicolumn{3}{c}{Pooling Between Studies} \\
+                \rowcolor{tableheadcolor}
+            },
+            after row={\midtopline}
+        },
+        every odd row/.style={
+        	before row={\rowcolor{vlgray}}
+        },
+        every row no 24/.style={
+            before row={\topline\rowcolor{tableheadcolor}}
+        },
+        every last row/.style={
+            before row={\rowcolor{tableheadcolor}},
+            after row=\bottomline
+        },  
+        col sep=&,
+        row sep=\\
+    ]{conn & c1 & c2 & c3 & c4 & c5 & c6 \\
+    dMRI & 0\% & 15\% & 0\% & 50\% & 67\% & 71\% \\
+    fMRI & 1\% & 6\% & 29\% & 12\% & 50\% & 61\% \\
+    }
+\end{table*}
