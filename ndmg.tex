@@ -120,103 +120,80 @@ Other disciplines with similar findings have resolved these issues by revolution
 
 \subsection{Individual-Level Analysis}
 
-In the individual-level analysis, each individual  undergoes some number of sessions, during which multiple different modalities can be collected.
+% In the individual-level analysis, in each session, multiple imaging a given  individual  undergoes some number of sessions, during which multiple different modalities can be collected.
 The input to \ndmg~for a given individual is  the collection of scans and some metadata for each scan, including a structural scan, % (T1w/MPRAGE), 
 and either, or both of, (1) a diffusion scan, including the diffusion parameters files,  and (2) a functional scan, including the slice acquisition sequence.
 The individual-level of \ndmg~analysis leverages existing open source tools, including
-the fMRI Software Library (FSL) ~\cite{fsl1, fsl2, fsl3}, Dipy~\cite{dipy}, the MNI152 atlas~\cite{mni152}, and a variety of parcellations defined in the MNI152 space~\cite{desikan, aal, jhu, harvardoxford, talairach, slab907, slab1068, pvt, glasser} (see \ref{app:parcels} for details about built-in parcellations included). 
+the fMRI Software Library (FSL) ~\cite{fsl1, fsl2, fsl3}, Dipy~\cite{dipy}, the MNI152 atlas~\cite{mni152}, and a variety of parcellations defined in the MNI152 space~\cite{desikan, aal, jhu, harvardoxford, talairach, slab907, slab1068, pvt, glasser} (see \ref{app:parcels} for details about included parcellations). 
 % @reb: vince says: [hey, we have a number of ICA parcellation schemes, the way we like to use them is to run spatially constrained ICA on new data using these as priors...if you want to do something with this let me know, possible collaboration going forward? ;-) ] let's get them in our set?
 All algorithms requiring hyper-parameter selection were initially set to the suggested parameters for each tool, and tuned to improve the accuracy, reliability, expediency, and robustness of the results.
 The output of each processing stage includes data derivatives and QA figures to enable individualized accuracy assessments.
-The QA figures at many stages include cross-sectional images at different depths in the three canonical planes (sagittal, coronal, and axial) of images or overlays. Example QA figures are provided in \ref{app:dpipe} and \ref{app:fpipe}.
+% The QA figures at many stages include cross-sectional images at different depths in the three canonical planes (sagittal, coronal, and axial) of images or overlays. 
+Figure~\ref{fig:ndmgpipeline} provides a schematic of the individual-level analysis, and Appendix  
+\ref{app:pipe} provides further details, as well as some example quality assurance figures.
+% Example QA figures are provided in \ref{app:dpipe} and \ref{app:fpipe}.
 %---which we refer to as QAX---as specified below.
 %A crucial component of the design of \ndmg~was to include  quality assurance (QA) figures for each stage to the pipeline, to enable users to easily detect whether or not the pipeline is producing accurate results. 
 %Snapshots of these QA figures are shown Figure~\ref{fig:ndmgpipeline}.%, whereas exemplars are provided in \ref{app:pipeline}.
 
 % \paragraph{Individual-Level Diffusion Analysis}
 
-The \ndmgd~pipeline consists of four key components: (1) registration, (2) tensor estimation, (3) tractography, and (4) graph generation (see Figure~\ref{fig:ndmgpipeline} for an illustration, and 
-\ref{app:dpipe} for further details). It was optimized on the Kirby21 dataset, and then applied to the remaning 10 datasets.
+The \ndmgd~pipeline consists of four key components: (1) registration, (2) tensor estimation, (3) tractography, and (4) graph generation. It was optimized on the Kirby21 dataset, and then applied to the remaning 10 datasets.
 Individual-level analysis in \ndmgd~takes approximately $1.5$ hours to complete using 1~CPU core and 12~GB of RAM at 1 mm$^3$ resolution.
-The individual-level analysis was run on 11 studies, including 3,227 individuals and 4,347 scans. Each dataset generated connectomes across each of the parcellations in \ref{app:parcels}, resulting in 104,328 functional brain-graphs.
+The individual-level analysis was run on 11 studies, including 3,227 individuals and 4,347 scans, using 24 parcellations,  resulting in 104,328 functional connectomes.
 
-The \ndmgf~pipeline can be broken up into four key components: (1) preprocessing, (2) registration, (3) nuisance correction, and (4) graph generation (see Figure~\ref{fig:ndmgpipeline} for an illustration and  \ref{app:fpipe} for further details).
-The \ndmgf~pipeline was constructed starting with the optimal processing pipeline identified in Wang et. al~\cite{discriminability} using CPAC~\cite{cpac}. Hyperparameters and further algorithm selection was optimized for reliability based on multiple measurement studies (including test-retest).
+The \ndmgf~pipeline can be broken up into four key components: (1) preprocessing, (2) registration, (3) nuisance correction, and (4) graph generation.
+The \ndmgf~pipeline was constructed starting with the optimal processing pipeline identified in Wang et. al~\cite{discriminability} using CPAC~\cite{cpac}. 
 Individual-level analysis in \ndmgf~takes approximately 20~minutes to complete using 1~CPU core and 3~GB of RAM at 2 mm$^3$resolution.
-The individual-level analysis was run on 714 individuals with 1,646 scans from 18 studies, generating connectomes across each of the 24 parcellations in \ndmgd, and resulting in 39,504 total brain-graphs.
+The individual-level analysis was run on 714 individuals with 1,646 scans from 18 studies, generating connectomes across each of the 24 parcellations in \ndmgd, and resulting in 39,504 total connectomes.
 
 % \paragraph{Multi-Scale Multi-Connectome Analysis}
 
 % For both diffusion and functional MRI, \ndmg~downsamples the voxel-wise graphs to obtain weighted graphs for many different parcellation schemes. This includes: (1) neuroanatomically delineated parcellations, such as the HarvardOxford cortical and sub-cortical atlases~\cite{harvardoxford}, the JHU~\cite{jhu}, Talairach~\cite{talairach}, Desikan~\cite{desikan}, and AAL~\cite{aal} atlases; (2) algorithmically delineated parcellations, such as Slab907~\cite{slab907}, Slab1068~\cite{slab1068}, and CC200~\cite{cpac};  and (3) 16 down-sampled parcellations ranging from 70 to 72,783 nodes~\cite{glocal}.  
 % For each, the \emph{multi-connectome} is defined by the set of nodes from a particular parcellation, and the set of (potentially weighted and/or directed) edges from each modality.
 
-For both diffusion and functional MRI, the QA for graph generation includes a heat map of the adjacency matrix, the number of non-zero edges, and several multivariate graph statistics (one statistic per vertex in the graph) including:  betweenness centrality, clustering coefficient, hemisphere-separated degree sequence, edge weight, eigenvalues of the graph laplacian, and locality statistic-1~\cite{glocal}.
-We developed the hemisphere-separated degree sequence to indicate the ipsilateral and contralateral degree for each vertex, which we found quite useful for QA.  
-\ref{app:graphgenf} includes definitions and implementation details for each of the statistics.
-Supplementary Figure ~\ref{fig:multiscale} shows, for a single individual, the graph summary statistics for the multi-connectome (including both functional and diffusion) across the set of atlases described above.
 % @reb: post submission, consider overlaying the D & F plots 
 
+
+\subsection{Multi-Group-Level Analysis}
+
+% We ran \ndmg~on the 11 diffusion and 18 functional studies listed in  Table~\ref{tab:data}.
+% For each, \ndmg~group-level analysis computes and plots group-level graph summary and reliability statistics. 
+
+% \subsection{Multi-Study Analysis}
+
+We focus our group level analysis on the resulting connectomes, as this pipeline is designed to be a connectome estimation and analysis pipeline.  Specifically, for each connectome, we compute eight different metrics, many of them multivariate (see Appendix for details).  For each study, we then compute the average over individuals.  Figure~\ref{fig:multisite} accumulates the results over all the studies.  It is readily apparent that \ndmg~successfully estimates connectomes from each study, even though the data quality, scanner parameters, and population demographics differ quite widely.  This is a testament to the robustness of \ndmg.  
+
+% top panel shows a variety of uni- and multi-variate statistics of the average diffusion connectome from each of the studies enumerated in Table~\ref{tab:data} with diffusion data using the Desikan parcellation. The bottom panel shows the same statistics computed on the average functional connectome from each of the studies enumerated in Table~\ref{tab:data} with functional data using the Desikan parcellation. In both the diffusion and functional connectomes, each dataset largely appears to have similar trends across each of the statistics shown.
+
 %%%%%%%
-\input{table_discr.tex}
+\input{figure_multisite.tex}
 %%%%%%%
-
-\subsection{Group-Level Analysis}
-
-We ran \ndmg~on the 11 diffusion and 18 functional studies listed in 
-Table~\ref{tab:data}.
-For each, \ndmg~group-level analysis computes and plots group-level graph summary and reliability statistics. 
-
-%%%%%%%
-\input{figure_graphqa.tex}
-%%%%%%%
-
-% \paragraph{Group Level Implementation Strategy}
-
-Leveraging previous efforts developed in our  ``Science in the Cloud''~\cite{sic} manuscript, multiple scans and studies are evaluated in parallel for participant-level analysis, and the derivatives are pooled for group-level analysis, much like typical map-reduce approaches (consistent with the BIDS app specification~\cite{bidsapps}). The parallel  implementation uses the Amazon Web Services (AWS) cloud, in particular leveraging their storage (S3) and high performance computing (Batch) services. Data are stored in an S3 bucket enabling  the \ndmg~cloud-API connectome estimation pipeline to process all scans on Amazon Batch in parallel. In practice,  AWS limits the number of parallel threads users are allowed to launch (to prevent accidental spending). After connectome estimation is complete, the same cloud-API exposed by \ndmg~enables group-level analysis to be launched and parallelized across each parcellation for all scans within each study. We were able to compute diffusion connectomes at 24~scales for each of the publicly available 2,861~scans (totaling 68,664~connectomes) in under one day and \$1,000. Had we processed each scan in parallel, cost would have remained the same but only taken $1.5$~hours.
-
-% \paragraph{Group-Level Graph Summary Statistics}
-
-Each scan's estimated connectome can be summarized by a set of graph statistics, as described above. For group-level analysis, we visualize each scan's summary statistics overlaid on one another. For example, Figure~\ref{fig:graphqa} demonstrates that each diffusion graph from the BNU3 dataset using the Desikan atlas has relatively similar values for the statistics (we use the Desikan atlas for the remainder of the analyses unless otherwise specified). Moreover, it is clear from both the degree plot and the mean connectome plot that the dMRI connectomes from this study tend to have more connections within a hemisphere than across a hemisphere, as expected. For the fMRI connectomes, however, the homotopic connections---that is, connections from one region on a hemisphere to the same region on the other hemisphere---seem particularly strong.
-%Supplementary Figure ~\ref{fig:graphqaf} shows example group-level analysis for the same study's functional data.
- 
-%\ref{app:multi} illustrates how \ndmg~also computes the average value for each univariate and multivariate statistic for each atlas, and demonstrates similarities across scales, indicating that that the basic structure of the connectomes is preserved across different atlases.
 
 
 %\subsubsection{\ndmgf~Individual-Level Pipeline}
 
-\paragraph{Group-Level Discriminability}
-\label{sec:disc}
+% \paragraph{Group-Level Discriminability}
+% \label{sec:disc}
 
-Group-level results from \ndmg~that include repeated measurements are quantitatively assessed using a statistic called discriminability~\cite{discriminability}.
-The group's sample discriminability estimates the probability that two observations within the same class are more similar to one another than to objects belonging to a different class:
-\begin{equation}
-D = Pr(|| a_{ij} - a_{ij'} || \leq || a_{ij} - a_{i'j'} ||).
-\label{eq:disc}
-\end{equation}
-In the context of reliability in \ndmg, each connectome, $a_{ij}$, is compared to other connectomes belonging to the same individual, $a_{ij'}$, and to all connectomes belonging to other individuals, $a_{i'j'}$.
-A perfect discriminability score indicates that for all observations within the group, each connectome is more like connectomes from the same individual than others.
-Table~\ref{tab:data} lists the discriminability score of each study with repeated measurements (five dMRI studies and sixteen fMRI).
- \ndmgd~achieves a discriminability score of nearly 0.99 or greater on most studies (the lowest score was nearly 0.9).  \ndmgf~achieves a discriminability score around 0.9 on all studies. 
-These high discriminability scores  were achieved by optimizing both \ndmgd~and \ndmgf~on a subset of the data.  Specifically, \ndmgd~was optimized using only the Kirby21 study, to achieve a perfect discriminability score.  Nonetheless, the other studies achieved comparably high discriminability scores, despite the fact that the Kirby21 used a Philips scanner, unlike any of the other studies. Moreover, Kirby21's age distribution is substantially different from several of the other dMRI studies (see Table~\ref{tab:data}).  
-Similarly, \ndmgf~was optimized using only 13 of the 18 studies, and yet discriminability on the remaining studies remained equally high~\cite{discriminability}, even though they also exhibited large study demographic and acquisition protocol variability.
-Finally, \ndmg~was not optimized explicitly at all on multimodal data, nonetheless, for all datasets with multiple scans per subject with both dMRI and fMRI, using the multimodal connectomes improved (or did not decrease) discriminability relative to either modality on its own.
-That \ndmg's discriminability score is robust to data acquisition details and study demographics across modalities suggests that scientific results may also be robust to such sources of variability.
-
-% Note that we invested significant effort in both pipelines to achieve these high discriminability scores, and to our knowledge, no other pipelines have been assessed with regards to discriminability. 
- 
- % or any other reliability metric.
-%
-%The discriminability score obtained if a pipeline produced random outputs is summarized in Equation~\ref{eq:chance}, and is a function of the number of classes, $k$, the number of elements in each class, $M_i$, and the total number of observations, $N$:
-%
-%\begin{equation}
-%C = \frac{\sum_{i \in k}^{k}M_{i}^{2}}{N^{2}}.
-%\label{eq:chance}
-%\end{equation}
-%
-%Optimizing \ndmg~with respect to discriminability enables us to minimize the upper-bound on error for any general downstream inference task.
-%Using discriminability for optimization also prevents over-fitting to covariate-specific signal (i.e. in contrast to optimizing the pipeline for sex classification).
+% Group-level results from \ndmg~that include repeated measurements are quantitatively assessed using a statistic called discriminability~\cite{discriminability}.
+% The group's sample discriminability estimates the probability that two observations within the same class are more similar to one another than to objects belonging to a different class:
+% \begin{equation}
+% D = Pr(|| a_{ij} - a_{ij'} || \leq || a_{ij} - a_{i'j'} ||).
+% \label{eq:disc}
+% \end{equation}
+% In the context of reliability in \ndmg, each connectome, $a_{ij}$, is compared to other connectomes belonging to the same individual, $a_{ij'}$, and to all connectomes belonging to other individuals, $a_{i'j'}$.
+% A perfect discriminability score indicates that for all observations within the group, each connectome is more like connectomes from the same individual than others.
+% Table~\ref{tab:data} lists the discriminability score of each study with repeated measurements (five dMRI studies and sixteen fMRI).
+%  \ndmgd~achieves a discriminability score of nearly 0.99 or greater on most studies (the lowest score was nearly 0.9).  \ndmgf~achieves a discriminability score around 0.9 on all studies. 
+% These high discriminability scores  were achieved by optimizing both \ndmgd~and \ndmgf~on a subset of the data.  Specifically, \ndmgd~was optimized using only the Kirby21 study, to achieve a perfect discriminability score.  Nonetheless, the other studies achieved comparably high discriminability scores, despite the fact that the Kirby21 used a Philips scanner, unlike any of the other studies. Moreover, Kirby21's age distribution is substantially different from several of the other dMRI studies (see Table~\ref{tab:data}).  
+% Similarly, \ndmgf~was optimized using only 13 of the 18 studies, and yet discriminability on the remaining studies remained equally high~\cite{discriminability}, even though they also exhibited large study demographic and acquisition protocol variability.
+% Finally, \ndmg~was not optimized explicitly at all on multimodal data, nonetheless, for all datasets with multiple scans per subject with both dMRI and fMRI, using the multimodal connectomes improved (or did not decrease) discriminability relative to either modality on its own.
+% That \ndmg's discriminability score is robust to data acquisition details and study demographics across modalities suggests that scientific results may also be robust to such sources of variability.
 
 
+\clearpage
+\subsection{Comparison to Resource Intensive Pipelines}
 
 
 \section{Discussion}
@@ -386,6 +363,144 @@ Jeffrey~S.~Anderson, Pierre~Bellec, Rasmus~M.~Birn, Bharat~B.~Biswal, Janusch~Bl
 %\input{figure_end2end.tex}
 %%%%%%%
 
+\section{Individual-Level Analysis}
+\label{app:pipe}
+
+In the individual-level analysis, each individual  undergoes some number of sessions, during which multiple different modalities can be collected.
+The input to \ndmg~for a given individual is  the collection of scans and some metadata for each scan, including a structural scan, % (T1w/MPRAGE), 
+and either, or both of, (1) a diffusion scan, including the diffusion parameters files,  and (2) a functional scan, including the slice acquisition sequence.
+The individual-level of \ndmg~analysis leverages existing open source tools, including
+the fMRI Software Library (FSL) ~\cite{fsl1, fsl2, fsl3}, Dipy~\cite{dipy}, the MNI152 atlas~\cite{mni152}, and a variety of parcellations defined in the MNI152 space~\cite{desikan, aal, jhu, harvardoxford, talairach, slab907, slab1068, pvt, glasser} (see \ref{app:parcels} for details about included parcellations). 
+% @reb: vince says: [hey, we have a number of ICA parcellation schemes, the way we like to use them is to run spatially constrained ICA on new data using these as priors...if you want to do something with this let me know, possible collaboration going forward? ;-) ] let's get them in our set?
+All algorithms requiring hyper-parameter selection were initially set to the suggested parameters for each tool, and tuned to improve the accuracy, reliability, expediency, and robustness of the results.
+The output of each processing stage includes data derivatives and QA figures to enable individualized accuracy assessments.
+The QA figures at many stages include cross-sectional images at different depths in the three canonical planes (sagittal, coronal, and axial) of images or overlays. Example QA figures are provided in \ref{app:dpipe} and \ref{app:fpipe}.
+%---which we refer to as QAX---as specified below.
+%A crucial component of the design of \ndmg~was to include  quality assurance (QA) figures for each stage to the pipeline, to enable users to easily detect whether or not the pipeline is producing accurate results. 
+%Snapshots of these QA figures are shown Figure~\ref{fig:ndmgpipeline}.%, whereas exemplars are provided in \ref{app:pipeline}.
+
+% \paragraph{Individual-Level Diffusion Analysis}
+
+The \ndmgd~pipeline consists of four key components: (1) registration, (2) tensor estimation, (3) tractography, and (4) graph generation (see Figure~\ref{fig:ndmgpipeline} for an illustration, and 
+\ref{app:dpipe} for further details). It was optimized on the Kirby21 dataset, and then applied to the remaning 10 datasets.
+Individual-level analysis in \ndmgd~takes approximately $1.5$ hours to complete using 1~CPU core and 12~GB of RAM at 1 mm$^3$ resolution.
+The individual-level analysis was run on 11 studies, including 3,227 individuals and 4,347 scans. Each dataset generated connectomes across each of the parcellations in \ref{app:parcels}, resulting in 104,328 functional brain-graphs.
+
+The \ndmgf~pipeline can be broken up into four key components: (1) preprocessing, (2) registration, (3) nuisance correction, and (4) graph generation (see Figure~\ref{fig:ndmgpipeline} for an illustration and  \ref{app:fpipe} for further details).
+The \ndmgf~pipeline was constructed starting with the optimal processing pipeline identified in Wang et. al~\cite{discriminability} using CPAC~\cite{cpac}. Hyperparameters and further algorithm selection was optimized for reliability based on multiple measurement studies (including test-retest).
+Individual-level analysis in \ndmgf~takes approximately 20~minutes to complete using 1~CPU core and 3~GB of RAM at 2 mm$^3$resolution.
+The individual-level analysis was run on 714 individuals with 1,646 scans from 18 studies, generating connectomes across each of the 24 parcellations in \ndmgd, and resulting in 39,504 total brain-graphs.
+
+% \paragraph{Multi-Scale Multi-Connectome Analysis}
+
+% For both diffusion and functional MRI, \ndmg~downsamples the voxel-wise graphs to obtain weighted graphs for many different parcellation schemes. This includes: (1) neuroanatomically delineated parcellations, such as the HarvardOxford cortical and sub-cortical atlases~\cite{harvardoxford}, the JHU~\cite{jhu}, Talairach~\cite{talairach}, Desikan~\cite{desikan}, and AAL~\cite{aal} atlases; (2) algorithmically delineated parcellations, such as Slab907~\cite{slab907}, Slab1068~\cite{slab1068}, and CC200~\cite{cpac};  and (3) 16 down-sampled parcellations ranging from 70 to 72,783 nodes~\cite{glocal}.  
+% For each, the \emph{multi-connectome} is defined by the set of nodes from a particular parcellation, and the set of (potentially weighted and/or directed) edges from each modality.
+
+For both diffusion and functional MRI, the QA for graph generation includes a heat map of the adjacency matrix, the number of non-zero edges, and several multivariate graph statistics (one statistic per vertex in the graph) including:  betweenness centrality, clustering coefficient, hemisphere-separated degree sequence, edge weight, eigenvalues of the graph laplacian, and locality statistic-1~\cite{glocal}.
+We developed the hemisphere-separated degree sequence to indicate the ipsilateral and contralateral degree for each vertex, which we found quite useful for QA.  
+\ref{app:graphgenf} includes definitions and implementation details for each of the statistics.
+Supplementary Figure ~\ref{fig:multiscale} shows, for a single individual, the graph summary statistics for the multi-connectome (including both functional and diffusion) across the set of atlases described above.
+% @reb: post submission, consider overlaying the D & F plots 
+
+
+\subsection{Parcellations}
+\label{app:parcels}
+\begin{table}[h]
+\makeatletter
+\let\@currsize\normalsize
+{\small
+\caption{\textbf{Parcellations}. 
+\ndmg~computes graphs at various scales using different parcellation atlases. Parcellations at 1 mm were downsampled to 2 mm using \texttt{flirt} for resampling, with the \texttt{nearestneighbour} interpolation method. The number of vertices in the 2 mm parcellations used for fMRI may be less than the number of vertices in the 1 mm parcellations for the dMRI due to vertices being contracted out by the nearest neighbour interpolation. Below, we distinguish anatomical parcellations, those constructed from anatomical features in the brain, from semi-automated parcellations, those constructed from human-input seeds and adjusted by algorithms, and algorithmic, those constructed purely using algorithms. The parcellations shown below are available for download from our website at \texttt{m2g.io}.}
+\label{tab:parcels}
+\begin{tabular}{ l l l l l}
+\textbf{Parcellation} & \textbf{Type of Parcellation} & \textbf{Included with dMRI} & \textbf{Included with fMRI} & \textbf{Number of vertices} \\ \hline
+AAL \cite{aal} & anatomical & \greencheck & \greencheck & 116 \\
+Desikan \cite{desikan} & anatomical & \greencheck & \greencheck & 70 \\
+Harvard-Oxford combined \cite{harvardoxford} & anatomical & \greencheck & \redx & 111 \\
+Harvard-Oxford  Cortical \cite{harvardoxford} & anatomical & \redx & \greencheck & 48 \\
+Harvard-Oxford Subcortical \cite{harvardoxford} & anatomical & \redx & \greencheck & 21 \\
+Talairach \cite{talairach} & anatomical & \greencheck & \greencheck & 1105 \\
+Brodmann & anatomical & \redx & \greencheck & 41 \\
+JHU \cite{jhu} & anatomical & \greencheck & \redx & 48 \\
+Glasser \cite{glasser} & semi-automated & \redx & \greencheck & 180 \\
+Princeton Visual-Topigraphic \cite{pvt} & algorithmic & \redx & \greencheck & 49 \\
+slab907 \cite{slab907} & algorithmic & \greencheck & \redx & 907 \\
+slab1068 \cite{slab1068} & algorithmic & \greencheck & \redx & 1068 \\
+CPAC200 & algorithmic & \greencheck & \greencheck & 200 \\
+DS00071 \cite{glocal} & algorithmic & \greencheck & \greencheck & 70 \\
+DS00108 \cite{glocal} & algorithmic & \greencheck & \greencheck & 107 \\
+DS00140 \cite{glocal} & algorithmic & \greencheck & \greencheck & 139 \\
+DS00195 \cite{glocal} & algorithmic & \greencheck & \greencheck & 194 \\
+DS00278 \cite{glocal} & algorithmic & \greencheck & \greencheck & 277 \\
+DS00350 \cite{glocal} & algorithmic & \greencheck & \greencheck & 349 \\
+DS00446 \cite{glocal} & algorithmic & \greencheck & \greencheck & 445 \\
+DS00583 \cite{glocal} & algorithmic & \greencheck & \greencheck & 582 \\
+DS00833 \cite{glocal} & algorithmic & \greencheck & \greencheck & 832 \\
+DS01216 \cite{glocal} & algorithmic & \greencheck & \greencheck & 1215 \\
+DS01876 \cite{glocal} & algorithmic & \greencheck & \redx & 1875 \\
+DS03231 \cite{glocal} & algorithmic & \greencheck & \redx & 3231 \\
+DS06481 \cite{glocal} & algorithmic & \greencheck & \redx & 6481 \\
+DS16784 \cite{glocal} & algorithmic & \greencheck & \redx & 16784 \\
+DS72784 \cite{glocal} & algorithmic & \greencheck & \redx & 72784 \\
+\end{tabular} }
+\end{table}
+
+%%%%%%%
+\input{table_discr.tex}
+%%%%%%%
+
+\section{Group-Level Analysis}
+
+We ran \ndmg~on the 11 diffusion and 18 functional studies listed in 
+Table~\ref{tab:data}.
+For each, \ndmg~group-level analysis computes and plots group-level graph summary and reliability statistics. 
+
+%%%%%%%
+\input{figure_graphqa.tex}
+%%%%%%%
+
+% \paragraph{Group Level Implementation Strategy}
+
+Leveraging previous efforts developed in our  ``Science in the Cloud''~\cite{sic} manuscript, multiple scans and studies are evaluated in parallel for participant-level analysis, and the derivatives are pooled for group-level analysis, much like typical map-reduce approaches (consistent with the BIDS app specification~\cite{bidsapps}). The parallel  implementation uses the Amazon Web Services (AWS) cloud, in particular leveraging their storage (S3) and high performance computing (Batch) services. Data are stored in an S3 bucket enabling  the \ndmg~cloud-API connectome estimation pipeline to process all scans on Amazon Batch in parallel. In practice,  AWS limits the number of parallel threads users are allowed to launch (to prevent accidental spending). After connectome estimation is complete, the same cloud-API exposed by \ndmg~enables group-level analysis to be launched and parallelized across each parcellation for all scans within each study. We were able to compute diffusion connectomes at 24~scales for each of the publicly available 2,861~scans (totaling 68,664~connectomes) in under one day and \$1,000. Had we processed each scan in parallel, cost would have remained the same but only taken $1.5$~hours.
+
+% \paragraph{Group-Level Graph Summary Statistics}
+
+Each scan's estimated connectome can be summarized by a set of graph statistics, as described above. For group-level analysis, we visualize each scan's summary statistics overlaid on one another. For example, Figure~\ref{fig:graphqa} demonstrates that each diffusion graph from the BNU3 dataset using the Desikan atlas has relatively similar values for the statistics (we use the Desikan atlas for the remainder of the analyses unless otherwise specified). Moreover, it is clear from both the degree plot and the mean connectome plot that the dMRI connectomes from this study tend to have more connections within a hemisphere than across a hemisphere, as expected. For the fMRI connectomes, however, the homotopic connections---that is, connections from one region on a hemisphere to the same region on the other hemisphere---seem particularly strong.
+%Supplementary Figure ~\ref{fig:graphqaf} shows example group-level analysis for the same study's functional data.
+ 
+%\ref{app:multi} illustrates how \ndmg~also computes the average value for each univariate and multivariate statistic for each atlas, and demonstrates similarities across scales, indicating that that the basic structure of the connectomes is preserved across different atlases.
+
+
+%\subsubsection{\ndmgf~Individual-Level Pipeline}
+
+\subsection{Group-Level Multi-Scale Analysis}
+
+For both diffusion and functional MRI, the QA for graph generation includes a heat map of the adjacency matrix, the number of non-zero edges, and several multivariate graph statistics (one statistic per vertex in the graph) including:  betweenness centrality, clustering coefficient, hemisphere-separated degree sequence, edge weight, eigenvalues of the graph laplacian, and locality statistic-1~\cite{glocal}.
+We developed the hemisphere-separated degree sequence to indicate the ipsilateral and contralateral degree for each vertex, which we found quite useful for QA.  
+\ref{app:graphgenf} includes definitions and implementation details for each of the statistics.
+Supplementary Figure ~\ref{fig:multiscale} shows, for a single individual, the graph summary statistics for the multi-connectome (including both functional and diffusion) across the set of atlases described above.
+
+
+%%%%%%%
+% \input{table_discr.tex}
+%%%%%%%
+
+
+%%%%%%%
+\input{figure_graphqa.tex}
+%%%%%%%
+
+% \paragraph{Group Level Implementation Strategy}
+
+Leveraging previous efforts developed in our  ``Science in the Cloud''~\cite{sic} manuscript, multiple scans and studies are evaluated in parallel for participant-level analysis, and the derivatives are pooled for group-level analysis, much like typical map-reduce approaches (consistent with the BIDS app specification~\cite{bidsapps}). The parallel  implementation uses the Amazon Web Services (AWS) cloud, in particular leveraging their storage (S3) and high performance computing (Batch) services. Data are stored in an S3 bucket enabling  the \ndmg~cloud-API connectome estimation pipeline to process all scans on Amazon Batch in parallel. In practice,  AWS limits the number of parallel threads users are allowed to launch (to prevent accidental spending). After connectome estimation is complete, the same cloud-API exposed by \ndmg~enables group-level analysis to be launched and parallelized across each parcellation for all scans within each study. We were able to compute diffusion connectomes at 24~scales for each of the publicly available 2,861~scans (totaling 68,664~connectomes) in under one day and \$1,000. Had we processed each scan in parallel, cost would have remained the same but only taken $1.5$~hours.
+
+% \paragraph{Group-Level Graph Summary Statistics}
+
+Each scan's estimated connectome can be summarized by a set of graph statistics, as described above. For group-level analysis, we visualize each scan's summary statistics overlaid on one another. For example, Figure~\ref{fig:graphqa} demonstrates that each diffusion graph from the BNU3 dataset using the Desikan atlas has relatively similar values for the statistics (we use the Desikan atlas for the remainder of the analyses unless otherwise specified). Moreover, it is clear from both the degree plot and the mean connectome plot that the dMRI connectomes from this study tend to have more connections within a hemisphere than across a hemisphere, as expected. For the fMRI connectomes, however, the homotopic connections---that is, connections from one region on a hemisphere to the same region on the other hemisphere---seem particularly strong.
+%Supplementary Figure ~\ref{fig:graphqaf} shows example group-level analysis for the same study's functional data.
+ 
+%\ref{app:multi} illustrates how \ndmg~also computes the average value for each univariate and multivariate statistic for each atlas, and demonstrates similarities across scales, indicating that that the basic structure of the connectomes is preserved across different atlases.
+
 
 \subsection{Group-Level Multi-Scale Analysis}
 \label{app:multi}
@@ -399,14 +514,9 @@ For most of the statistics, the ``shape'' of the distributions  are relatively s
 \input{figure_multiscale.tex}
 %%%%%%%
 
+
+
 %\clearpage
-\subsection{Multi-Study Analysis}
-
-Figure~\ref{fig:multisite} top panel shows a variety of uni- and multi-variate statistics of the average diffusion connectome from each of the studies enumerated in Table~\ref{tab:data} with diffusion data using the Desikan parcellation. The bottom panel shows the same statistics computed on the average functional connectome from each of the studies enumerated in Table~\ref{tab:data} with functional data using the Desikan parcellation. In both the diffusion and functional connectomes, each dataset largely appears to have similar trends across each of the statistics shown.
-
-%%%%%%%
-\input{figure_multisite.tex}
-%%%%%%%
 
 
 \section{Availability Statements}
