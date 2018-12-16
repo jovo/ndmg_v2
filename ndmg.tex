@@ -3,14 +3,10 @@
 \usepackage{enumitem}
 
 \title{
-A High-Throughput Pipeline Identifies Robust Connectomes But Troublesome Variability
+A Low-Resource Pipeline to Democratize Multi-Modal Connectome Estimation and Analysis
+% A High-Throughput Pipeline Identifies Robust Connectomes But Troublesome Variability
 }
 
-% @reb: vc wants all the acquisition parameters somewhere, let's put them in m2g.io (they are not all there now)
-% @jv: # studies: 25
-% @jv: #studies dMRI: 11 total; 10 we did analysis on.
-% @jv: #studies fMRI: 18 total; 18 we did analysis on.
-% @jv: # sites: 15
 
 \begin{document}
 
@@ -107,73 +103,10 @@ Other disciplines with similar findings have resolved these issues by revolution
 \input{table_pipelines.tex}
 %%%%%%%%
 
-%%%%%%%%
-%\input{table_ohbm.tex}
-%%%%%%%%
+
 
 \section{Results}
-%\subsection{Overview}
 
-Table~\ref{tab:pipelines} depicts \ndmg's performance with regard to each of the below described principles for reproducible pipelines.  
-For each principle, we outline a procedure for evaluating the degree to which a pipeline adheres to that principle, enabling the principle-based evaluation of disparate approaches. 
-%Each pipeline  receives a \greencheck~if it fully adheres to the principle, an \ocheck~if it partially adheres, and a \redx~if it does not adhere.
-
-\subparagraph*{Statistical Principles}
-The statistical principles are designed to evaluate the empirical quality of the method on real data. Better quality suggests the pipeline can be trusted to be reliable for subsequent investigations. 
-
-% \noindent 
-\emph{Accuracy} quantifies the distance between ``the truth' and an estimate---also known as ``validity''---and is closely related to the statistical concepts of ``unbiased'' and ``consistent''.  
-Because the truth is unknown for these data, no pipeline can be meaningfully evaluated in terms of accuracy. Until the field develops the technological capability to obtain ``ground truth'' data, we rely on surrogate information. 
-Specifically, %\ndmg~incorporates extensive QA ,
-%For example, users can visualize fibers to confirm that they all stay within the skull.  
-\ndmg~incorporates the quality assessment (QA )from CPAC~\cite{cpac} as well as other pipelines, and also adds several novel QA figures, with at least one figure per processing stage, yielding a total of 11 QA figures per diffusion scan and 32 per functional scan (see \ref{app:pipes} for details). \ndmg~does not filter any data based on QA thresholds, as the choice of threshold remains both subjective and task dependent.
-
-% \noindent 
-\emph{Reliability} colloquially refers to methods that produce a similar result given a similar input, also called ``stability'' in the statistics literature~\cite{Yu2013}.
-To evaluate a method's reliability, Wang et al.~\cite{discriminability} developed a metric  called ``discriminability'' that quantifies the fraction of measurements from the same individual that are closer to one another than they are to the measurement of any other individual (details below). 
-
-\ndmg's discriminability over all scans was nearly $0.98$ for dMRI data and over $0.88$ for fMRI. 
-% Pipelines for which there are no published examples of reliability receive a \ocheck, on the assumption that they might also be reliable. 
-
-% \noindent 
-\emph{Robustness} quantifies accuracy and reliability across a wide range of studies with different properties, including different experimental design, measurement devices, etc.  
-We, therefore, ran \ndmg~on 11 dMRI studies and 18 fMRI studies using different hardware and acquisition parameters (see Table~\ref{tab:data} for details). In some of these studies samples were not  filtered to discard outliers or samples with poor signal-to-noise properties. Nonetheless, for each study, \ndmg's QA suggested accuracy, and each study achieved a score of discriminability $>0.8$. 
-
-\subparagraph*{Computational Principles}
-Adhering to the computational principles lowers the barrier for use. In practice, this means that both domain experts and researchers from other disciplines (such as machine learning and statistics), can more easily use the tools.  
-% scalability, portability, turn-key, and open
-
-% \noindent 
-\emph{Expediency} refers to the time it takes to run an approach on a typical sample.  
-In practice, we suspect that users are more likely to adopt pipelines that run in about an hour per scan as compared to those that run overnight per scan, for example.
-The \ndmg~runtime is about $20$ minutes for a functional scan, and $1.5$ hours for a diffusion scan. 
-%Pipelines that require about a day are not expedient.
-
-\emph{Parallelized} refers to the ability of the method to parallelize the code across multiple computers.  \ndmg~enables parallelization across scans---using the commercial cloud or a high-performance cluster, for example, enables \ndmg~to run many thousands of scans in only $1.5$ hours.
-
-% \noindent 
-\emph{Portability}---meaning the ability to be run on different platforms, from laptop and cloud, with minimal installation and configuration energy---enables different analysts using different hardware resources to seamlessly use the code. We have tested \ndmg~on multiple hardware and operating system setups, including Windows, OSX, and Linux laptops,  multi-core workstations, singularity clusters, and the Amazon cloud.  Moreover, we have deployed \ndmg~on both openneuro~\cite{openneuro} and CBRAIN~\cite{CBRAIN}, making it possible for anybody to  run \ndmg~for free on their own or other's computational resources.  
-
-% \noindent 
-\emph{Turn-Key} methods do not require the user to specify parameters and settings for each stage of processing or for each new study. This feature reduces the time for researchers to get a pipeline running, and enables pooling data across multiple pipelines because the analysis is harmonized (conducted identically across studies). 
-%possibility of over-fitting when choosing the algorithmic details associated with each processing stage. 
-\ndmg~parameters have been tuned to yield accurate and reliable connectome estimates across nearly 30 different studies.  
-Moreover, \ndmg~is fully compliant with Brain Imaging Data Structure (BIDS)---a recently proposed specification for organizing multi-scan, multi-individual, and multi-modality studies~\cite{bids, bidsapps}.  
-
-% \noindent 
-\emph{Open}, referring to both open source code and open access data derivatives processed using the code, enables anybody with Web-access to contribute to the scientific process. 
- \ndmg~leverages open source packages with permissive licenses, and is released under the Apache 2.0 open source license.  
-Our website, \url{http://m2g.io} contains links to download all of the data derivatives and quality assurance figures from each scan, and is the largest open database of connectomes and other data derivatives to our knowledge.
-% @reb: change url to m2g.neurodata.io when that is live.
-By developing \ndmg~according to these  statistical and computational design principles, and running it on many diverse studies, we can evaluate individuals, studies, and the collection of studies at an unprecedented scale. Below, we describe the nuts and bolts of the pipeline, followed by a set of \ndmg~-enabled scientific findings. Our hope is that \ndmg~and the data products derived from it will be useful for a wide variety of discoveries.
-
-\subparagraph*{Connectome Principles} We also consider a pair of principles that are specific for reproducible pipelines in connectomics.  
-
-
-
-\emph{dMRI and fMRI} pipelines operate on diffusion  or functional MRI data respectively.
-
-\emph{Raw-to-Graph} refers to the pipeline performing all steps of analysis required to acquire connectomes (graphs) given raw, unprocessed M3R scans with no user input. The \ndmgd~pipeline was built to take raw dMRI and T1w images and produce a diffusion connectome, and the \ndmgf~pipeline takes raw fMRI and T1w images and produces a functional connectome.
 
 \subsection{Individual-Level Analysis}
 
