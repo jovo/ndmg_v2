@@ -29,9 +29,9 @@ Joshua~T.~Vogelstein$^\dagger$
 
 
 \noindent
-\textbf{Modern scientific discovery depends on collecting large heterogeneous datasets with many sources of variability, and applying domain-specific pipelines from which one can draw  insight or clinical utility. For example, macroscale connectomics studies require complex pipelines to process raw functional or diffusion data and estimate connectomes. Individual studies tend to customize pipelines to their needs, raising concerns about their reproducibility,  and adding to a longer list of factors that may differ across studies (including sampling, experimental design, and data acquisition protocols), resulting in failures to replicate. Mitigating these issues requires multi-study datasets and the development of pipelines that can be applied across them. We developed NeuroData's MRI to Graphs (\ndmg) pipeline using several functional and diffusion studies, including the Consortium for Reliability and Reproducibility, to estimate connectomes. Without any manual intervention or parameter tuning, \ndmg~ran on 25 different studies ($\approx$ 6,000 scans) from 15 sites,  with each scan resulting in a biologically plausible connectome (as assessed by multiple quality assurance metrics at each processing stage). For each study, the connectomes from \ndmg~are more similar within than across individuals, indicating that \ndmg~is preserving biological variability. Moreover, the connectomes exhibit near perfect consistency for certain connectional properties across every scan, individual, study, site, and modality; these include stronger ipsilateral than contralateral connections and stronger homotopic than heterotopic connections. 
-% @JV: review says:  it is unclear what the sentence refers to
-Yet, the magnitude of the differences varied across individuals and studies---much more so when pooling data across sites, even after controlling for study, site, and basic demographic variables (i.e., age, sex, and ethnicity). This indicates that other experimental variables (possibly those not measured or reported) are contributing to this variability, which if not accounted for can limit the value of aggregate datasets, as well as expectations regarding the accuracy of findings and likelihood of replication. We, therefore, provide a set of principles to guide the development of pipelines capable of pooling data across studies while maintaining biological variability and minimizing measurement error. This open science approach provides us with an opportunity to understand and eventually mitigate spurious results for both past and future studies.
+\textbf{%
+Human brain imaging using magnetic resonance imaging (MRI) has recently undergone received widespread attention.  These data potentially hold the key to understanding both normal and abnormal brain function.  Connectomics, the study of connections in the brain, has recently been implicated as a potential route to such discoveries.  However, MRI based connectomics is a resource intensive practice.  MRI machines cost millions of dollars, and  studies cost thousands of dollars per individual.  Moreover, state of the art analysis routines require both extensive domain expertise, as well as considerable computational power and capabilities.  These challenges are in stark contrast to the recent globalization of brain sciences, with the advent of various national and international brain initiatives.  We therefore built a low-resource functional and diffusion MRI pipeline to estimate and analyze human connectome data.  Running the pipeline, without any manual intervention, on approximately 6,000 open access brain scans, and making all data derivatives open, results in the largest open access human connectome repository in the world.  Our open source pipeline, and resulting data derivatives, therefore democratizes connectomics, welcoming participation from researchers previously unable to contribute to our community.
+% Modern scientific discovery depends on collecting large heterogeneous datasets with many sources of variability, and applying domain-specific pipelines from which one can draw  insight or clinical utility. For example, macroscale connectomics studies require complex pipelines to process raw functional or diffusion data and estimate connectomes. Individual studies tend to customize pipelines to their needs, raising concerns about their reproducibility,  and adding to a longer list of factors that may differ across studies (including sampling, experimental design, and data acquisition protocols), resulting in failures to replicate. Mitigating these issues requires multi-study datasets and the development of pipelines that can be applied across them. We developed NeuroData's MRI to Graphs (\ndmg) pipeline using several functional and diffusion studies, including the Consortium for Reliability and Reproducibility, to estimate connectomes. Without any manual intervention or parameter tuning, \ndmg~ran on 25 different studies ($\approx$ 6,000 scans) from 15 sites,  with each scan resulting in a biologically plausible connectome (as assessed by multiple quality assurance metrics at each processing stage). For each study, the connectomes from \ndmg~are more similar within than across individuals, indicating that \ndmg~is preserving biological variability. Moreover, the connectomes exhibit near perfect consistency for certain connectional properties across every scan, individual, study, site, and modality; these include stronger ipsilateral than contralateral connections and stronger homotopic than heterotopic connections.  Yet, the magnitude of the differences varied across individuals and studies---much more so when pooling data across sites, even after controlling for study, site, and basic demographic variables (i.e., age, sex, and ethnicity). This indicates that other experimental variables (possibly those not measured or reported) are contributing to this variability, which if not accounted for can limit the value of aggregate datasets, as well as expectations regarding the accuracy of findings and likelihood of replication. We, therefore, provide a set of principles to guide the development of pipelines capable of pooling data across studies while maintaining biological variability and minimizing measurement error. This open science approach provides us with an opportunity to understand and eventually mitigate spurious results for both past and future studies.
 }
 %Modern scientific discovery depends on collecting large heterogeneous datasets with many sources of variability, and applying domain-specific pipelines from which one can draw  insight or clinical utility. For example, macroscale connectomics studies require complex pipelines to process raw functional or diffusion data and estimate connectomes. Individual studies tend to customize pipelines to their needs, raising concerns about their reproducibility,  and adding to a longer list of factors that may differ across studies (including sampling, experimental design, and data acquisition protocols), resulting in failures to replicate. Mitigating these issues requires multi-study datasets and the development of pipelines that can be applied across them. We developed NeuroData's MRI to Graphs (NDMG) pipeline using several functional and diffusion studies, including the Consortium for Reliability and Reproducibility, to estimate connectomes. Without any manual intervention or parameter tuning, NDMG ran on 25 different studies (~6,000 scans) from 15 sites,  with each scan resulting in a biologically plausible connectome (as assessed by multiple quality assurance metrics at each processing stage). For each study, the connectomes from NDMG are more similar within than across individuals, indicating that NDMG is preserving biological variability. Moreover, the connectomes exhibit near perfect consistency for certain connectional properties across every scan, individual, study, site, and modality; these include stronger ipsilateral than contralateral connections and stronger homotopic than heterotopic connections. Yet, the magnitude of the differences varied across individuals and studies - much more so when pooling data across sites, even after controlling for study, site, and basic demographic variables (i.e., age, sex, and ethnicity). This indicates that other experimental variables (possibly those not measured or reported) are contributing to this variability, which if not accounted for can limit the value of aggregate datasets, as well as expectations regarding the accuracy of findings and likelihood of replication. We, therefore, provide a set of principles to guide the development of pipelines capable of pooling data across studies while maintaining biological variability and minimizing measurement error. This open science approach provides us with an opportunity to understand and eventually mitigate spurious results for both past and future studies.
 
@@ -47,41 +47,19 @@ Yet, the magnitude of the differences varied across individuals and studies---mu
 
 
 \section{Introduction}
-% 
-% Action: 
-% 1. establish principles for pipelines
-% 2. open source data including those with multiple measurements
-% 3. open source pipeline adhering to principles applied to those data 
-% 
-% Reproducibility and replicability are fundamental to scientific progress.  
-% When studies  replicate using new data or methods, the validity and utility  of inferences in both studies are strengthened.  
-% Yet, many studies fail to replicate across disciplines~\cite{Ioannidis2005}, including numerous examples in neuroimaging~\cite{Button2013}. 
-% 
-%  Failures to replicate can have many causes, including variability in sampling, recruitment, experimental design, data acquisition details (e.g., phenotyping instruments, scanners, scan protocol parameters), quality control, data processing, data analysis, or statistical testing~\cite{Bennett2011-aw}, as well as unintended/ unknown sources of measurement error, underpowered samples, bad luck or poor research conduct practices~\cite{John2012, Loken2017}.
-% The degree to which each of these factors cause problems impacts the efficacy of strategies to mitigate these problems in future studies.  There is therefore a need to develop computational and statistical pipelines that enable evaluating the impact of each of these potential factors. 
-% 
 
 
 
-Recent developments in technology enable experimentalists to collect increasingly large, complex, and heterogeneous data. 
-Any single study can include both raw multi-modal data and
-extensive metadata, 
-including sample design, experimental protocols,  data acquisition, and subject specific demographics/phenotypics. Each of these variables adds different sources of variability, which can hamper our ability to interpret and/or generalize results~\cite{Kelly2012, Kaiser}.  Moreover, often only a subset of the potential sources of variability are documented or reported~\cite{Yan2013-vy}.  
-Interpreting these data therefore requires deep data processing pipelines. Such pipelines are particularly important when attempting to enlarge sample size and increase power by aggregating data across multiple studies. These pipelines, however, can introduce additional sources of variability, if different pipelines are used on different datasets, or the same pipeline is applied across datasets but requires substantial tuning or manual intervention, or is run using different operating systems~\cite{Gronenschild2012-of}.
-These sources of variability can collectively swamp the signal of interest, yielding studies with questionable reproducibility, scientific validity, and/or clinical utility. 
+% Recent developments in technology enable experimentalists to collect increasingly large, complex, and heterogeneous data. Any single study can include both raw multi-modal data and extensive metadata, including sample design, experimental protocols,  data acquisition, and subject specific demographics/phenotypics. Each of these variables adds different sources of variability, which can hamper our ability to interpret and/or generalize results~\cite{Kelly2012, Kaiser}.  Moreover, often only a subset of the potential sources of variability are documented or reported~\cite{Yan2013-vy}.  Interpreting these data therefore requires deep data processing pipelines. Such pipelines are particularly important when attempting to enlarge sample size and increase power by aggregating data across multiple studies. These pipelines, however, can introduce additional sources of variability, if different pipelines are used on different datasets, or the same pipeline is applied across datasets but requires substantial tuning or manual intervention, or is run using different operating systems~\cite{Gronenschild2012-of}. These sources of variability can collectively swamp the signal of interest, yielding studies with questionable reproducibility, scientific validity, and/or clinical utility. 
 
-Studies in neuroimaging exemplify these properties. The data from a single study consist of structural, functional, and/or diffusion magnetic resonance imaging (sMRI, fMRI, and dMRI) scans, from multiple individuals. The metadata associated with a study includes the time, date, and location of the scans, the make and model of the scanner hardware and software, scanner acquisition protocols, as well as the demographic information from each individual, only some of which may be recorded and reported. A number of investigators have developed  processing pipelines for one or more of these modalities~\cite{cpac, Cui2013, Daducci2012, mrcap, migraine, Song2011, Yan2010, Yan2016, Wang2015, Calhoun2001-wc, Xu2015,Zuo2013}, but none of the pipelines are designed to address the  variability alluded to above, or work across both fMRI and dMRI.  
+% Studies in neuroimaging exemplify these properties. The data from a single study consist of structural, functional, and/or diffusion magnetic resonance imaging (sMRI, fMRI, and dMRI) scans, from multiple individuals. The metadata associated with a study includes the time, date, and location of the scans, the make and model of the scanner hardware and software, scanner acquisition protocols, as well as the demographic information from each individual, only some of which may be recorded and reported. A number of investigators have developed  processing pipelines for one or more of these modalities~\cite{cpac, Cui2013, Daducci2012, mrcap, migraine, Song2011, Yan2010, Yan2016, Wang2015, Calhoun2001-wc, Xu2015,Zuo2013}, but none of the pipelines are designed to address the  variability alluded to above, or work across both fMRI and dMRI.  
 
 
-For example, a number of studies have identified frequently uncontrolled  variables that can radically alter the results of downstream inferences, such as menstrual cycle status~\cite{Yan2013-vy}.
-Others have demonstrated that some statistics and normalization procedures result in stable parameter estimates across fMRI measurements \emph{within} an individual and study, but those analyses lacked a coherent statistical model, did not compare across studies, and did not consider dMRI data~\cite{Yan2013-vy}. 
-A few investigations have pooled data across studies, with mixed results. With enough samples, certain properties are apparently preserved~\cite{Thompson2016-by,Abrol2017-fk}. Alternately, the use of sophisticated machine learning techniques can mitigate some of these issues~\cite{varoquaux2013learning}. Nonetheless, many studies continue to fail to be replicated~\cite{Button2013}. 
+% For example, a number of studies have identified frequently uncontrolled  variables that can radically alter the results of downstream inferences, such as menstrual cycle status~\cite{Yan2013-vy}. Others have demonstrated that some statistics and normalization procedures result in stable parameter estimates across fMRI measurements \emph{within} an individual and study, but those analyses lacked a coherent statistical model, did not compare across studies, and did not consider dMRI data~\cite{Yan2013-vy}.  A few investigations have pooled data across studies, with mixed results. With enough samples, certain properties are apparently preserved~\cite{Thompson2016-by,Abrol2017-fk}. Alternately, the use of sophisticated machine learning techniques can mitigate some of these issues~\cite{varoquaux2013learning}. Nonetheless, many studies continue to fail to be replicated~\cite{Button2013}. 
 
 
 
-
-
-To rigorously identify and quantify the sources of variability both within and across  multi-modal neuroimaging  requires (1) data and (2) a pipeline. The requisite data includes  numerous datasets with multiple measurements per individual---including data that both conserve and vary a number of different factors. The requisite pipeline must be able to fully  process each sample and study, and analyze the results both within and across studies using a coherent statistical model.  
+% To rigorously identify and quantify the sources of variability both within and across  multi-modal neuroimaging  requires (1) data and (2) a pipeline. The requisite data includes  numerous datasets with multiple measurements per individual---including data that both conserve and vary a number of different factors. The requisite pipeline must be able to fully  process each sample and study, and analyze the results both within and across studies using a coherent statistical model.  
 
 
 The Consortium of Reliability and Reproducibility (CoRR) consists of about 30 different studies from nearly 20 different institutions around the world that provide the necessary data~\cite{corr}. But no existing pipeline can successfully estimate and meaningfully process every scan in this dataset---including both functional and diffusion data---while also quantifying the magnitude and source of variability amongst them. 
@@ -89,15 +67,15 @@ We, therefore, established several principles and metrics to guide the developme
 We developed an approach, ``Neuro Data MRI to Graphs'' (\ndmg), that 
 meets or exceeds standards along each of the above mentioned principles. We validated our pipeline by running \ndmg~on 11 dMRI  studies comprising 3,227 individuals with 4,347 scans, 
 and 18 fMRI  studies comprising 714 individuals with 1,646 scans. 
-For each scan \ndmg~estimates  a ``connectome'' (a functional or structural map of connectivity) at 24 different spatial resolutions---yielding a total of  $>100,000$ estimated connectomes---all of which are publicly available from \url{http://m2g.io}. This is the largest open database of connectomes~\cite{brown2016connected},
-and one of the largest mega-analyses (inference across studies) of multi-modal connectomics data to date~\cite{varoquaux2013learning, vidaurre2017discovering}. 
+For each scan \ndmg~estimates  a ``connectome'' (a functional or structural map of connectivity) at 24 different spatial resolutions---yielding a total of nearly  $150,000$ estimated connectomes---all of which are publicly available from \url{http://m2g.io}. This is the largest open database of connectomes~\cite{brown2016connected}.
+% and one of the largest mega-analyses (inference across studies) of multi-modal connectomics data to date~\cite{varoquaux2013learning, vidaurre2017discovering}. 
 
 
 
-These connectomes provided the data that led us to develop statistical connectomics methods to quantify various connectome properties, such as the relative probability of ipsilateral vs.~contralateral connections and homotopic vs.~heterotopic connections. While these properties have been previously noted in single studies~\cite{Stark2008,Zuo2010,Gee2011}, this work demonstrates that aspects of these properties are preserved both across individuals and studies upon optimizing and harmonizing the pipeline. Nonetheless, within session, site, study, and demographic cohorts, substantial variability remained in the \emph{magnitude} of these properties. 
-Moreover, we observed a considerably higher degree of variability across sites, studies, and demographic cohorts. In part, this variability may be due to legitimate biological heterogeneity that could not be accounted for using the limited phenotyping available. However, a substantial portion of that variability is likely reflective of experimental and/or measurement error.
-This variability can partially explain recent failures of replicability in neuroimaging~\cite{Button2013}, as well as the lack of clinically useful neuroimaging based biomarkers~\cite{APA12}. This work therefore motivates significant further efforts in measurement and/or analysis to mitigate ``batch effects’’ in neuroimaging. 
-Other disciplines with similar findings have resolved these issues by revolutionizing their measurement strategy (for example, genomics moved away from microarrays because sequencing can be significantly more reliable than microarray measurements~\cite{SEQCMAQC-III_Consortium2014-ij})---though only after all efforts to remediate existing methods failed. For imaging, more comprehensively phenotyped individuals, and more coordinated data acquisition protocols, can be a first step towards studies generating sufficiently accurate and reliable inferences and clinical biomarkers.
+% These connectomes provided the data that led us to develop statistical connectomics methods to quantify various connectome properties, such as the relative probability of ipsilateral vs.~contralateral connections and homotopic vs.~heterotopic connections. While these properties have been previously noted in single studies~\cite{Stark2008,Zuo2010,Gee2011}, this work demonstrates that aspects of these properties are preserved both across individuals and studies upon optimizing and harmonizing the pipeline. Nonetheless, within session, site, study, and demographic cohorts, substantial variability remained in the \emph{magnitude} of these properties. 
+% Moreover, we observed a considerably higher degree of variability across sites, studies, and demographic cohorts. In part, this variability may be due to legitimate biological heterogeneity that could not be accounted for using the limited phenotyping available. However, a substantial portion of that variability is likely reflective of experimental and/or measurement error.
+% This variability can partially explain recent failures of replicability in neuroimaging~\cite{Button2013}, as well as the lack of clinically useful neuroimaging based biomarkers~\cite{APA12}. This work therefore motivates significant further efforts in measurement and/or analysis to mitigate ``batch effects’’ in neuroimaging. 
+% Other disciplines with similar findings have resolved these issues by revolutionizing their measurement strategy (for example, genomics moved away from microarrays because sequencing can be significantly more reliable than microarray measurements~\cite{SEQCMAQC-III_Consortium2014-ij})---though only after all efforts to remediate existing methods failed. For imaging, more comprehensively phenotyped individuals, and more coordinated data acquisition protocols, can be a first step towards studies generating sufficiently accurate and reliable inferences and clinical biomarkers.
 
 %%%%%%%%
 % \input{table_pipelines.tex}
@@ -110,10 +88,18 @@ Other disciplines with similar findings have resolved these issues by revolution
 
 % \subsection{Individual-Level Analysis}
 
-%%%%%%%
-\input{figure_ndmgpipeline.tex}
-%%%%%%%
-\clearpage
+\begin{figure*}[t!]
+	\centering
+	\includegraphics[width=0.9\textwidth]{./figs/ndmg_pipeline.pdf}
+    \caption{\textbf{Individual Level Pipeline}
+  The individual-level  \ndmg~pipeline has two sub-pipelines:  (1) \ndmgd~transforms raw dMRI data into sparse structural connectomes, and (2) \ndmgf~transforms raw fMRI data into dense functional connectomes.  Each sub-pipeline consists of four key steps, and each step generates both data derivatives and quality assurance figures to enable both qualitative assessments and quantitative comparisons (see~\ref{app:dpipe} and~\ref{app:fpipe} for details).  
+%  as seen in the top. \ndmgd~consists of four main steps: registration, tensor estimation, tractography, and graph generation. Simiarly, the subject-level of the \ndmgf~pipeline transforms raw functional MRI data into structural connectomes, as seen in the bottom. \ndmgf~consists of four main steps: preprocessing, registration, nuisance-correction, and graph generation.
+%  At each stage, \ndmg~produces both data derivatives and quality assurance figures of the derivative, as illustrated.
+}
+	\label{fig:ndmgpipeline}
+\end{figure*}
+
+% \clearpage
 %%%%%%%
 %\input{figure_ohbm_discr.tex}
 %%%%%%%
@@ -131,28 +117,17 @@ The output of each processing stage includes data derivatives and QA figures to 
 % The QA figures at many stages include cross-sectional images at different depths in the three canonical planes (sagittal, coronal, and axial) of images or overlays. 
 Figure~\ref{fig:ndmgpipeline} provides a schematic of the individual-level analysis, and Appendix  
 \ref{app:pipe} provides further details, as well as some example quality assurance figures.
-% Example QA figures are provided in \ref{app:dpipe} and \ref{app:fpipe}.
-%---which we refer to as QAX---as specified below.
-%A crucial component of the design of \ndmg~was to include  quality assurance (QA) figures for each stage to the pipeline, to enable users to easily detect whether or not the pipeline is producing accurate results. 
-%Snapshots of these QA figures are shown Figure~\ref{fig:ndmgpipeline}.%, whereas exemplars are provided in \ref{app:pipeline}.
 
-% \paragraph{Individual-Level Diffusion Analysis}
-
-The \ndmgd~pipeline consists of four key components: (1) registration, (2) tensor estimation, (3) tractography, and (4) graph generation. It was optimized on the Kirby21 dataset, and then applied to the remaning 10 datasets.
+The \ndmgd~pipeline consists of: (1) registration, (2) tensor estimation, (3) tractography, and (4) graph generation. It was optimized on the Kirby21 dataset, and then applied to the remaning 10 datasets.
 Individual-level analysis in \ndmgd~takes approximately $1.5$ hours to complete using 1~CPU core and 12~GB of RAM at 1 mm$^3$ resolution.
 The individual-level analysis was run on 11 studies, including 3,227 individuals and 4,347 scans, using 24 parcellations,  resulting in 104,328 functional connectomes.
 
-The \ndmgf~pipeline can be broken up into four key components: (1) preprocessing, (2) registration, (3) nuisance correction, and (4) graph generation.
+The \ndmgf~pipeline consists of: (1) preprocessing, (2) registration, (3) nuisance correction, and (4) graph generation.
 The \ndmgf~pipeline was constructed starting with the optimal processing pipeline identified in Wang et. al~\cite{discriminability} using CPAC~\cite{cpac}. 
 Individual-level analysis in \ndmgf~takes approximately 20~minutes to complete using 1~CPU core and 3~GB of RAM at 2 mm$^3$resolution.
 The individual-level analysis was run on 714 individuals with 1,646 scans from 18 studies, generating connectomes across each of the 24 parcellations in \ndmgd, and resulting in 39,504 total connectomes.
 
-% \paragraph{Multi-Scale Multi-Connectome Analysis}
-
-% For both diffusion and functional MRI, \ndmg~downsamples the voxel-wise graphs to obtain weighted graphs for many different parcellation schemes. This includes: (1) neuroanatomically delineated parcellations, such as the HarvardOxford cortical and sub-cortical atlases~\cite{harvardoxford}, the JHU~\cite{jhu}, Talairach~\cite{talairach}, Desikan~\cite{desikan}, and AAL~\cite{aal} atlases; (2) algorithmically delineated parcellations, such as Slab907~\cite{slab907}, Slab1068~\cite{slab1068}, and CC200~\cite{cpac};  and (3) 16 down-sampled parcellations ranging from 70 to 72,783 nodes~\cite{glocal}.  
-% For each, the \emph{multi-connectome} is defined by the set of nodes from a particular parcellation, and the set of (potentially weighted and/or directed) edges from each modality.
-
-% @reb: post submission, consider overlaying the D & F plots 
+All data derivatives, including the nearly 150,000 estimated connectomes, as well as quality assurance figures, are available from \url{https://m2g.io}.  We hope these data will provide a useful resource for others studying connectomics, especially those in data science fields such as graph theory and social network analysis, that lack the subject matter expertise to estimate connectomes, but have much to add to our community in terms of downstream analysis.
 
 
 \subsection{Multi-Group-Level Analysis}
@@ -166,30 +141,23 @@ We focus our group level analysis on the resulting connectomes, as this pipeline
 
 % top panel shows a variety of uni- and multi-variate statistics of the average diffusion connectome from each of the studies enumerated in Table~\ref{tab:data} with diffusion data using the Desikan parcellation. The bottom panel shows the same statistics computed on the average functional connectome from each of the studies enumerated in Table~\ref{tab:data} with functional data using the Desikan parcellation. In both the diffusion and functional connectomes, each dataset largely appears to have similar trends across each of the statistics shown.
 
-%%%%%%%
-\input{figure_multisite.tex}
-%%%%%%%
-
-
-%\subsubsection{\ndmgf~Individual-Level Pipeline}
-
-% \paragraph{Group-Level Discriminability}
-% \label{sec:disc}
-
-% Group-level results from \ndmg~that include repeated measurements are quantitatively assessed using a statistic called discriminability~\cite{discriminability}.
-% The group's sample discriminability estimates the probability that two observations within the same class are more similar to one another than to objects belonging to a different class:
-% \begin{equation}
-% D = Pr(|| a_{ij} - a_{ij'} || \leq || a_{ij} - a_{i'j'} ||).
-% \label{eq:disc}
-% \end{equation}
-% In the context of reliability in \ndmg, each connectome, $a_{ij}$, is compared to other connectomes belonging to the same individual, $a_{ij'}$, and to all connectomes belonging to other individuals, $a_{i'j'}$.
-% A perfect discriminability score indicates that for all observations within the group, each connectome is more like connectomes from the same individual than others.
-% Table~\ref{tab:data} lists the discriminability score of each study with repeated measurements (five dMRI studies and sixteen fMRI).
-%  \ndmgd~achieves a discriminability score of nearly 0.99 or greater on most studies (the lowest score was nearly 0.9).  \ndmgf~achieves a discriminability score around 0.9 on all studies. 
-% These high discriminability scores  were achieved by optimizing both \ndmgd~and \ndmgf~on a subset of the data.  Specifically, \ndmgd~was optimized using only the Kirby21 study, to achieve a perfect discriminability score.  Nonetheless, the other studies achieved comparably high discriminability scores, despite the fact that the Kirby21 used a Philips scanner, unlike any of the other studies. Moreover, Kirby21's age distribution is substantially different from several of the other dMRI studies (see Table~\ref{tab:data}).  
-% Similarly, \ndmgf~was optimized using only 13 of the 18 studies, and yet discriminability on the remaining studies remained equally high~\cite{discriminability}, even though they also exhibited large study demographic and acquisition protocol variability.
-% Finally, \ndmg~was not optimized explicitly at all on multimodal data, nonetheless, for all datasets with multiple scans per subject with both dMRI and fMRI, using the multimodal connectomes improved (or did not decrease) discriminability relative to either modality on its own.
-% That \ndmg's discriminability score is robust to data acquisition details and study demographics across modalities suggests that scientific results may also be robust to such sources of variability.
+\begin{figure*}[t!]
+    \centering
+    \includegraphics[width=\textwidth]{./figs/fig_dwi_multisite.png}
+    \includegraphics[width=\textwidth]{./figs/fig_fmri_multisite.png}
+    \caption{
+    \textbf{Multi-Study Connectome Analysis}.
+    Average connectomes from ten (seventeen) diffusion (functional) studies processed with \ndmgd~are qualitatively compared by way of their summary statistics on the Desikan parcellation in the top (bottom).
+    The Desikan atlas used in \ndmg~has been modified to include two additional regions, one per hemisphere, which fills in a hole in the parcellation near the corpus callosum.
+    The nodes in this plot have been sorted such that the degree sequence of the left hemisphere (Desikan nodes 1-35) of the BNU1 dataset is monotonically non-decreasing, and that corresponding left-right nodes are next to one another.
+    Each line shows the average for each statistic over all individuals within a study.
+    % On  the bottom, we repeat the same analysis on the functional connectomes from seventeen different studies. Like the statistics computed in for the diffusion connectomes, t
+    The statistics are  qualitatively similar across studies. 
+    % This suggests that claims made or analyses
+    % performed on a given scale may not hold when applied to another scale. Again, we see that parcellation choice has an impact on the implications of a study. Information on the graph statistics computed can be found in \ref{app:graphstats}.
+    }
+    \label{fig:multisite}
+\end{figure*}
 
 
 \clearpage
@@ -199,13 +167,11 @@ We focus our group level analysis on the resulting connectomes, as this pipeline
 \section{Discussion}
 
 
-%The issues of reproducibility and batch effect spans essentially every discipline of science, although it has been particularly problematic in  omics~\cite{Leek2010-vs, Rosenfeld2010-nf, Chen2011, Nygaard2016-hw, Goh2017-hc} and more recently 
-%The potential sources of variability  include
-The goal of any scientific investigation is not to characterize the observed sample data’s variance, but rather, to make inferences about the general population on the basis of those data.  
-Variability of sample demographics, data acquisition details (for example, number of repetitions for fMRI, number of directions for dMRI), analysis methods, measurement error, questionable research practices, or statistical errors can each contribute to limitations in generalizing to populations in psychology~\cite{Button2013} and neuroimaging~\cite{Costafreda2009}.
-Our principles for pipeline development enabled a rigorous high-throughput analysis of multi-study, multi-site, and multi-connectome data to identify and quantify different sources of variability.
+% The goal of any scientific investigation is not to characterize the observed sample data’s variance, but rather, to make inferences about the general population on the basis of those data.  
+% Variability of sample demographics, data acquisition details (for example, number of repetitions for fMRI, number of directions for dMRI), analysis methods, measurement error, questionable research practices, or statistical errors can each contribute to limitations in generalizing to populations in psychology~\cite{Button2013} and neuroimaging~\cite{Costafreda2009}.
+% Our principles for pipeline development enabled a rigorous high-throughput analysis of multi-study, multi-site, and multi-connectome data to identify and quantify different sources of variability.
 
-While perhaps seemingly at odds, the results from Figures~\ref{fig:siem} and~\ref{fig:batch} are complementary.  Specifically, Figure~\ref{fig:siem} demonstrates that essentially all connectomes share a particular property: stronger connections in one set of edges than another. On the other hand, Figure~\ref{fig:batch} demonstrates that although some sets of edges tend to be larger than others, the {magnitude} of the differences is highly variable both within and across studies. That the \emph{magnitude} of certain parameters can differ while the \emph{sign} of those parameters can be constant parallels recent suggestions from the statistics literature to move away from ``Type I'' and ``Type II'' errors, to Type M (magnitude) and Type  S (sign) errors~\cite{gelman14a}. Moreover, it suggests a strategy to understand and address batch effects: reporting the \emph{precision} for which effects are preserved or variable.  For example, in this study, when using the coarsest possible precision (larger versus smaller as in Figure~\ref{fig:siem}), no batch effects arise, whereas when using an extremely fine precision (the difference in magnitude as in Figure~\ref{fig:batch} ), batch effects are pervasive. The natural question then becomes: at which precision, for a given parameter and source of variability, do the studies still agree? Such analyses could then be incorporated into downstream analyses to preserve results across studies. 
+% While perhaps seemingly at odds, the results from Figures~\ref{fig:siem} and~\ref{fig:batch} are complementary.  Specifically, Figure~\ref{fig:siem} demonstrates that essentially all connectomes share a particular property: stronger connections in one set of edges than another. On the other hand, Figure~\ref{fig:batch} demonstrates that although some sets of edges tend to be larger than others, the {magnitude} of the differences is highly variable both within and across studies. That the \emph{magnitude} of certain parameters can differ while the \emph{sign} of those parameters can be constant parallels recent suggestions from the statistics literature to move away from ``Type I'' and ``Type II'' errors, to Type M (magnitude) and Type  S (sign) errors~\cite{gelman14a}. Moreover, it suggests a strategy to understand and address batch effects: reporting the \emph{precision} for which effects are preserved or variable.  For example, in this study, when using the coarsest possible precision (larger versus smaller as in Figure~\ref{fig:siem}), no batch effects arise, whereas when using an extremely fine precision (the difference in magnitude as in Figure~\ref{fig:batch} ), batch effects are pervasive. The natural question then becomes: at which precision, for a given parameter and source of variability, do the studies still agree? Such analyses could then be incorporated into downstream analyses to preserve results across studies. 
 
 
 
@@ -213,83 +179,25 @@ While perhaps seemingly at odds, the results from Figures~\ref{fig:siem} and~\re
 
 
 
-%The \ndmg~pipeline is a reliable tool for structural and functional connectome estimation and analysis with  a low barrier to entry, and is capable of producing accurate brain-graphs across studies.
-%
-The design criteria for \ndmg~required certain trade-offs, including robustness under variability versus optimality under idealized data.  
-% Optimizing \ndmg~for any individual dataset would make it sub-optimal for other datasets.  
-Nonetheless, \ndmg, could be improved along several dimensions.
-%Below we suggest several strategies that could  improve \ndmg~along various dimensions.
-First, 
-%several of the algorithm choices required trade-offs between accuracy and expediency, 
-recent advances in registration~\cite{lddmm} and tractography ~\cite{probtrackx} could be incorporated.
-When implementations for these algorithms achieve suitable expediency and robustness, it will be natural to assess them. 
-Second, recently several more sophisticated batch effect strategies have been successfully employed in dMRI data~\cite{Fortin2017-dm}. Such strategies could possibly help here as well, especially if they are modified appropriately to work on binary graphs~\cite{Leek2007}.
-%
-Third, there is some evidence that machine learning approaches to mitigating batch effects can be effective as well, but so far only in fMRI data and only using four, rather than 18 studies~\cite{abraham2017deriving}.
-Fourth, pre-processing strategies have been employed to improve multi-site reliability~\cite{mirzaalian2017harmonization}, so implementing methods such as these within \ndmg~could possibly mitigate some batch effects, at the risk of reducing accuracy and/or reliability~\cite{adhd}.
-%First, several of the algorithm choices required trade-offs between accuracy and expediency, including registration~\cite{lddmm} and tractography.  When implementations for more accurate algorithms achieve suitable expediency, it will be natural to include them. 
-%Second,  recently several more sophisticated batch effect strategies have been successfully employed in dMRI data~\cite{Fortin2017-dm}.  Such strategies could possibly help here as well, especially if they are modified appropriate to work on binary graphs~\cite{Leek2007,Chen2011} 
-%Third, there is some evidence machine learning approaches to mitigating batch effects can be effective as well, but so far only in fMRI data and only using four, rather than 18 studies~\cite{abraham2017deriving}.
-%Fourth, post-data collection stratification to harmonize study demographics has also been demonstrated to be effective to reduce batch effects of fMRI, although this study used only two studies with the same scanner~\cite{Noble2017}. 
-%Pre-processing strategies have been employed to improve multi-site reliability~\cite{mirzaalian2017harmonization}, implementing  methods such as these within \ndmg~could possibly mitigate some batch effect, at the risk of reducing accuracy and/or reliability~\cite{adhd}.
+% The design criteria for \ndmg~required certain trade-offs, including robustness under variability versus optimality under idealized data.  
+% Nonetheless, \ndmg, could be improved along several dimensions.
+% First, 
+% recent advances in registration~\cite{lddmm} and tractography ~\cite{probtrackx} could be incorporated.
+% When implementations for these algorithms achieve suitable expediency and robustness, it will be natural to assess them. 
+% Second, recently several more sophisticated batch effect strategies have been successfully employed in dMRI data~\cite{Fortin2017-dm}. Such strategies could possibly help here as well, especially if they are modified appropriately to work on binary graphs~\cite{Leek2007}.
+% %
+% Third, there is some evidence that machine learning approaches to mitigating batch effects can be effective as well, but so far only in fMRI data and only using four, rather than 18 studies~\cite{abraham2017deriving}.
+% Fourth, pre-processing strategies have been employed to improve multi-site reliability~\cite{mirzaalian2017harmonization}, so implementing methods such as these within \ndmg~could possibly mitigate some batch effects, at the risk of reducing accuracy and/or reliability~\cite{adhd}.
 
 
-%Other efforts have focused on multi-study data. Specifically, Abraham et al. \cite{abraham2017deriving}
-%%Multi-site predictive tasks have been performed considering 
-%used fMRI-derived connectomes from the ABIDE dataset, and demonstrate an impressive ability to minimize batch effects. Unfortunately,  most ABIDE studies lack dMRI data, so a similar strategy for \ndmgd~is not currently possible.  Similarly, concomitant with our manuscript is Noble et al. \cite{Noble2017}, who conducted a multi-scanner analysis with harmonized  fMRI acquisition on 12 individuals.  The compelling results suggest that pooling across studies with harmonized acquisition can potentially improve reliability.
-%%and performing similar analyses upon a multi-dataset collection of dMRI-derived connectomes is an exciting avenue for future exploration.
-%Additionally, a variety of studies propose methods for post-acquisition data harmonization using either minimally pre-processed or raw MRI data~\cite{mirzaalian2017harmonization,Fortin2017-dm,adhd} that could be explored within the context of the \ndmg~pipeline.
+% It may be that analysis methods on their own are insufficient to mitigate replicability issues, and that further improving data acquisition and/or data acquisition harmonization may be required. Indeed, a recent study by Noble et al.~\cite{Noble2017} found relatively few batch effects in fMRI data, although it employed only two datasets with enhanced and harmonized data acquisition protocols. 
 
 
 
+% Because the methods developed herein are open source and easy to use, and the data are open access, this work enables further studies to assess measurement errors as well as variability of sample demographics and experimental protocols. For example, data could be sub-sampled to only include scans that pass stringent quality assurance standards, or have a sufficiently long duration to support discriminable connectomes~\cite{Airan17}.
+% % @EB: update citation.
+%  Alternately, this analysis could be repeated on data that is ``perfectly'' harmonized. In general, further work developing and applying experimental and theoretical tools to parse the relative impact of various sources of batch effects, as well as batch effect mitigation strategies, will be crucial for neuroimaging to achieve its greatest potential scientific and clinical value. 
 
-
-% \ndmg~has been optimized with respect to discriminability, yet  one can always further improve the pipeline via incorporating additional algorithms, datasets, or metrics.  For example, one could further optimize to reduce the batch effect.
-%Alternately, one could incorporate probabilistic tractography to compare with deterministic approaches in a principled meganalysis using the open source data derivatives generated here.
-%an exhaustive hyper-parameter sweep optimizing each parameter selection in \ndmg~has not yet been conducted.
-%Though this has not occurred, an important contribution of \ndmg~is the illustration that highly sophisticated and computationally burdensome algorithms such as probabilistic tractography are not necessary to create reliable estimates of brain connectivity.
-%Evaluating the quality of connectome estimation pipelines using probabilistic tractography with discriminability would enable a decisive answer to the question of when deterministic or probabilistic tractography is a more reliable when estimating connectivity, and by how much.
-
-
-
-
-%Several previously proposed fMRI or dMRI pipelines utilize different algorithms which could also be incorporated, but have not been investigated here for various reasons.  CPAC~\cite{cpac}, PANDAS~\cite{Cui2013}, and CMTK~\cite{Daducci2012},   are flexible pipelines enabling users to select hyper-parameters for their dataset. This is a useful feature for many applications, but when the desire is to increase reliability, harmonization is key.
-%%This freedom emphasizes the between-dataset differences in connectomes estimated with varying processing parameters, and cannot necessarily be directly compared.
-% MRCAP~\cite{mrcap} and MIGRAINE~\cite{migraine} provide reference pipelines, but are difficult to deploy, and also lack vetting across studies. 
-%%In the present study, we chose many pipelines for the evaluation while some existing pipelines were not included for such a purpose. 
-%%Several analytic pipelines of resting-state fMRI that we did not evaluate above include
-%REST~\cite{Song2011}, DPARSF~\cite{Yan2010}, DPABI~\cite{Yan2016}, GRETNA~\cite{Wang2015}, and GIFT~\cite{Calhoun2001-wc} lack command line interfaces and therefore are much more difficult to run at scale in a reliable fashion. 
-%%limited to  are very popular with user-friendly graphic user interfaces (GUIs), however, it is not trivial for users to translate them into  computational platforms for  very large-scale neuroimaging data analysis. 
-%Surface-based pipelines of rfMRI data such as connectome computation system (CCS)~\cite{Xu2015} and HCP (only volume-based part was included in the current evaluation) will be investigated in future work~\cite{Zuo2013}.
-
-
-It may be that analysis methods on their own are insufficient to mitigate replicability issues, and that further improving data acquisition and/or data acquisition harmonization may be required. Indeed, a recent study by Noble et al.~\cite{Noble2017} found relatively few batch effects in fMRI data, although it employed only two datasets with enhanced and harmonized data acquisition protocols. 
-
-%that post-data collection stratification to harmonize study demographics effectively to reduce batch effects of fMRI, although only in one much smaller mega-level analysis using  two studies with the same scanner.  
-
-
-%However, while the algorithms that these pipelines leverage have become standard, the pipelines have not. Indeed, there is a distinct lack of reference pipelines in the field. This has resulted in each publication using  (sometimes subtly) different parameters, often without specifying  precise details and dependencies, making reproducibility difficult.  Moreover, the lack of reference pipelines also creates inefficiencies in the collective scientific process because pipelines have to be designed and tuned for each study, essentially.  
-
-
-Because the methods developed herein are open source and easy to use, and the data are open access, this work enables further studies to assess measurement errors as well as variability of sample demographics and experimental protocols. For example, data could be sub-sampled to only include scans that pass stringent quality assurance standards, or have a sufficiently long duration to support discriminable connectomes~\cite{Airan17}.
-% @EB: update citation.
- Alternately, this analysis could be repeated on data that is ``perfectly'' harmonized. In general, further work developing and applying experimental and theoretical tools to parse the relative impact of various sources of batch effects, as well as batch effect mitigation strategies, will be crucial for neuroimaging to achieve its greatest potential scientific and clinical value. 
-
-%Perhaps even more problematic is that such pipelines cannot readily be used for meganalysis (an approach that pools data across datasets, centers, or studies) because most  are idiosyncratically designed for a particular study~\cite{Costafreda2009}. This stifles our ability to understand and quantify batch effects in neuroimaging, which are extremely problematic in -omics data~\cite{Leek2010-vs, Rosenfeld2010-nf, Nygaard2016-hw, Goh2017-hc}, though relatively understudied~\cite{Olivetti2012-vy, Fortin2016-yq, Fortin2017-dm}.
-
-
-
-%The Human Connectome Project (HCP) has recently collected an extraordinary M3R dataset, and developed processing
-%pipelines accordingly. It is our belief that \ndmg~is explicitly not in competition with the tools and resources
-%produced by HCP. The HCP pipeline when run on the HCP data creates likely the most outstanding map of human brain
-%connectivity to date, however, their pipeline relies on many additional parameters and files (such as scanner bias
-%fields, and multi-shell acquisitions of dMRI data), making it unable to be deployed across the majority of existing
-%dMRI studies. \ndmg~takes the approach of being a generally useful, reliable, and impactful tool, without requiring
-%state-of-the-art acquisitions which are not commonly available outside of next-gen experimental paradigms. \ndmg~can be
-%deployed on the HCP data, though it would not take advantage of the additional scans and parameters acquired. We
-%believe that the HCP pipelines and \ndmg~compliment one another, and comparing the two more closely is an exciting
-%avenue to be explored in future work.
-% @rjv: I'm not sure we nd this anymore? Good to keep written when reviewers ask, though. -gk
 
 
 % \clearpage
